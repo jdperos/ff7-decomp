@@ -1,0 +1,14 @@
+__pycache__/
+.idea/
+.venv/
+.vscode/
+asm/
+assets/
+bin/
+build/
+disks/
+undefined_funcs_auto.*.txt
+undefined_syms_auto.*.txt
+.ninja_log
+.ninja_lock
+build.ninja
