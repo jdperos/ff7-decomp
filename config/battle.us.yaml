@@ -1,21 +1,21 @@
 options:
   platform:     psx
-  basename:     dschange
+  basename:     battle
   base_path:    ..
   build_path:   build/us
-  target_path:  disks/us/FIELD/DSCHANGE.X
-  asm_path:     asm/us/dschange
-  asset_path:   assets/us/dschange
-  src_path:     src/dschange
-  ld_script_path: build/us/dschange.ld
+  target_path:  disks/us/BATTLE/BATTLE.X.dec
+  asm_path:     asm/us/battle
+  asset_path:   assets/us/battle
+  src_path:     src/battle
+  ld_script_path: build/us/battle.ld
   compiler:     GCC
   symbol_addrs_path:
     - config/sym_export.us.txt
-    - config/symbols.dschange.txt
+    - config/symbols.battle.txt
   create_undefined_funcs_auto: no
-  undefined_funcs_auto_path: config/undefined_funcs_auto.dschange.us.txt
+  undefined_funcs_auto_path: config/undefined_funcs_auto.battle.us.txt
   create_undefined_syms_auto: yes
-  undefined_syms_auto_path:  config/undefined_syms_auto.dschange.us.txt
+  undefined_syms_auto_path:  config/undefined_syms_auto.battle.us.txt
   find_file_boundaries: yes
   use_legacy_include_asm: no
   asm_jtbl_label_macro: jlabel
@@ -27,16 +27,15 @@ options:
     - ".rodata"
     - ".bss"
   ld_generate_symbol_per_data_segment: true
-sha1: e884441c5ceacdeb94e16a603b73ca53706078e8
+sha1: c82690f814b18664c3b2d024f4edeea5743995d9
 segments:
-  - name: dschange
+  - name: battle
     type: code
     start: 0
     vram:  0x800A0000
     align: 4
     subalign: 4
     subsegments:
-      - [0x0, c, dschange]
-      - [0x1580, data]
-      - [0x15E0, bss]
-  - [0x1774]
+      - [0x0, c, battle]
+      - [0x47A38, data]
+  - [0x538AC]

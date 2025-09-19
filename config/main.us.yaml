@@ -10,7 +10,7 @@ options:
   ld_script_path: build/us/main.ld
   compiler:     GCC
   symbol_addrs_path:
-    - config/symbols.us.txt
+    - config/symbols.main.us.txt
     - config/sym_extern.us.txt
   create_undefined_funcs_auto: no
   undefined_funcs_auto_path: config/undefined_funcs_auto.us.txt

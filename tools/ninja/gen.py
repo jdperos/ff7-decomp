@@ -131,9 +131,19 @@ def add_splat_config(file_name: str):
                 add_s(cfg, name)
             elif kind == "c":
                 add_c(cfg, name)
+    output_name = f"{build_path(cfg)}/{basename(cfg)}.elf"
+    sym_export = "config/sym_export.us.txt"
+    if basename(cfg) == "main":
+        nw.build(
+            rule="sym-export",
+            outputs=[sym_export],
+            inputs=[output_name],
+        )
+    else:
+        objs.append(sym_export)
     nw.build(
         rule="psx-ld",
-        outputs=[f"{build_path(cfg)}/{basename(cfg)}.elf"],
+        outputs=[output_name],
         inputs=[ld_path(cfg)],
         implicit=objs,
         variables={
@@ -153,6 +163,12 @@ def add_splat_config(file_name: str):
         outputs=[f"{build_path(cfg)}/{basename(cfg)}.exe"],
         inputs=[f"{build_path(cfg)}/{basename(cfg)}.elf"],
     )
+
+
+def get_check_list(file_path) -> list[str]:
+    with open(file_path, "r") as f:
+        lines = f.readlines()
+    return [line.strip().split(" ")[2] for line in lines if line]
 
 
 with open("build.ninja", "w") as f:
@@ -193,6 +209,11 @@ with open("build.ninja", "w") as f:
         description="psx exe $in",
     )
     nw.rule(
+        "sym-export",
+        command=f".venv/bin/python3 tools/symbols.py $in $out",
+        description="sym export $in",
+    )
+    nw.rule(
         "check",
         command="sha1sum -c config/check.sha1",
         description="check",
@@ -200,8 +221,13 @@ with open("build.ninja", "w") as f:
     nw.build(
         rule="check",
         outputs=["build/check.dummy"],
-        inputs=[
-            "build/us/main.exe",
-        ],
+        inputs=get_check_list("config/check.sha1"),
     )
     add_splat_config("config/main.us.yaml")
+    # add_splat_config("config/battle.us.yaml")
+    add_splat_config("config/brom.us.yaml")
+    add_splat_config("config/dschange.us.yaml")
+    add_splat_config("config/ending.us.yaml")
+    add_splat_config("config/field.us.yaml")
+    add_splat_config("config/menubgin.us.yaml")
+    add_splat_config("config/menusave.us.yaml")

@@ -288,6 +288,10 @@ INCLUDE_ASM("asm/us/main/nonmatchings/psxsdk", func_80039FEC);
 
 INCLUDE_ASM("asm/us/main/nonmatchings/psxsdk", func_8003A078);
 
+INCLUDE_ASM("asm/us/main/nonmatchings/psxsdk", func_8003A08C);
+
+INCLUDE_ASM("asm/us/main/nonmatchings/psxsdk", func_8003A0B8);
+
 INCLUDE_ASM("asm/us/main/nonmatchings/psxsdk", func_8003A0E8);
 
 INCLUDE_ASM("asm/us/main/nonmatchings/psxsdk", func_8003A1A4);
@@ -487,6 +491,8 @@ INCLUDE_ASM("asm/us/main/nonmatchings/psxsdk", ratan2);
 INCLUDE_ASM("asm/us/main/nonmatchings/psxsdk", func_8003CD9C);
 
 INCLUDE_ASM("asm/us/main/nonmatchings/psxsdk", func_8003CE0C);
+
+INCLUDE_ASM("asm/us/main/nonmatchings/psxsdk", func_8003CE3C);
 
 INCLUDE_ASM("asm/us/main/nonmatchings/psxsdk", PadRead);
 
@@ -834,6 +840,8 @@ INCLUDE_ASM("asm/us/main/nonmatchings/psxsdk", srand);
 
 INCLUDE_ASM("asm/us/main/nonmatchings/psxsdk", printf);
 
+INCLUDE_ASM("asm/us/main/nonmatchings/psxsdk", func_80042DD8);
+
 INCLUDE_ASM("asm/us/main/nonmatchings/psxsdk", strlen);
 
 INCLUDE_ASM("asm/us/main/nonmatchings/psxsdk", memchr);
@@ -1067,6 +1075,8 @@ INCLUDE_ASM("asm/us/main/nonmatchings/psxsdk", _card_info);
 INCLUDE_ASM("asm/us/main/nonmatchings/psxsdk", _card_load);
 
 INCLUDE_ASM("asm/us/main/nonmatchings/psxsdk", _card_auto);
+
+INCLUDE_ASM("asm/us/main/nonmatchings/psxsdk", func_80048998);
 
 INCLUDE_ASM("asm/us/main/nonmatchings/psxsdk", _card_write);
 

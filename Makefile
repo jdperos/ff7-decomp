@@ -1,3 +1,11 @@
+OVL_US += BATTLE/BATINI.X
+OVL_US += BATTLE/BATRES.X
+OVL_US += BATTLE/BATTLE.X
+OVL_US += BATTLE/BROM.X
+OVL_US += FIELD/FIELD.BIN
+OVL_US += MINI/CHOCOBO.BIN
+OVL_US += WORLD/WORLD.BIN
+
 .PHONY: all
 all: disks
 	python3 tools/ninja/gen.py && ninja
@@ -10,9 +18,11 @@ disks/%.iso:
 	mv "disks/$*.iso01.iso" "$@"
 disks/us: disks/Final\ Fantasy\ VII\ (USA)\ (Disc\ 1).iso
 	7z x "$<" -o$@
+	@for f in $(OVL_US); do \
+		tail --bytes=+9 "$@/$$f" | gzip -cd > "$@/$$f.dec"; \
+	done
 disks/betaus: disks/Final\ Fantasy\ VII\ (USA)\ (Interactive\ Sampler\ CD).iso
 	7z x "$<" -o$@
-
 
 .PHONY: clean
 clean:
