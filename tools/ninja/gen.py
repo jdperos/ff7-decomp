@@ -3,7 +3,8 @@ import os
 import yaml
 
 CPP_FLAGS = "-Iinclude -Iinclude/psxsdk -DUSE_INCLUDE_ASM"
-CC_FLAGS = "-O2 -G8"
+CC_MAIN_FLAGS = "-O2 -G8"
+CC_OVL_FLAGS = "-O2 -G0"
 LD_FLAGS = ""
 
 nw: ninja_syntax.Writer = None
@@ -56,7 +57,7 @@ def add_s(cfg: any, file_name: str):
     )
 
 
-def add_c(cfg: any, file_name: str):
+def add_c(cfg: any, file_name: str, cc_flags: str):
     in_path = f"{src_path(cfg)}/{file_name}.c"
     out_path = f"{build_path(cfg)}/{in_path}.o"
     if out_path in objs:
@@ -67,6 +68,9 @@ def add_c(cfg: any, file_name: str):
         outputs=[out_path],
         inputs=[in_path],
         implicit=["include/common.h", "include/game.h"],
+        variables={
+            "cc_flags": cc_flags,
+        },
     )
     nw.build(
         rule="phony",
@@ -103,7 +107,8 @@ def add_splat_config(file_name: str):
         implicit=cfg["options"]["symbol_addrs_path"],
     )
     objs.clear()
-    if platform(cfg) == "psx" and basename(cfg) == "main":
+    is_main = basename(cfg) == "main"
+    if platform(cfg) == "psx" and is_main:
         add_s(cfg, "header")
     for segment in cfg["segments"]:
         if not "type" in segment:
@@ -130,10 +135,13 @@ def add_splat_config(file_name: str):
             elif kind == "asm":
                 add_s(cfg, name)
             elif kind == "c":
-                add_c(cfg, name)
+                if is_main:
+                    add_c(cfg, name, CC_MAIN_FLAGS)
+                else:
+                    add_c(cfg, name, CC_OVL_FLAGS)
     output_name = f"{build_path(cfg)}/{basename(cfg)}.elf"
     sym_export = "config/sym_export.us.txt"
-    if basename(cfg) == "main":
+    if is_main:
         nw.build(
             rule="sym-export",
             outputs=[sym_export],
@@ -187,7 +195,7 @@ with open("build.ninja", "w") as f:
         "psx-cc",
         command=(
             f"mipsel-linux-gnu-cpp {CPP_FLAGS} -lang-c -Iinclude -Iinclude/psxsdk -undef -Wall -fno-builtin $in"
-            f" | bin/cc1-psx-272 -quiet -mcpu=3000 -g -mgas -gcoff {CC_FLAGS}"
+            f" | bin/cc1-psx-272 -quiet -mcpu=3000 -g -mgas -gcoff $cc_flags"
             " | python3 tools/maspsx/maspsx.py  --expand-div --aspsx-version=2.34"
             " | mipsel-linux-gnu-as -Iinclude -march=r3000 -mtune=r3000 -no-pad-sections -O1 -G0 -o $out"
         ),

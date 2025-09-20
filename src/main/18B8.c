@@ -1,5 +1,4 @@
-#include "common.h"
-#include <libgpu.h>
+#include <game.h>
 
 typedef enum {
     LBA_INIT_YAMADA = 614,
@@ -48,13 +47,6 @@ typedef enum {
     KERNEL_TEXT_BATTLE,
     KERNEL_NAME_SUMMON,
 } KernelID;
-
-typedef union {
-    void* poly;
-    POLY_FT4* ft4;
-    TILE_1* tile1;
-    BLK_FILL* blk_fill;
-} Gpu;
 
 typedef struct {
     s32 loc; // disk sector where the file can be found
@@ -154,10 +146,8 @@ extern s32 D_80048D0C;
 extern s32 D_80048D10;
 extern Yamada D_80048D84[];
 extern s32 D_80048DD4[];
-extern Gpu D_80062F24;
 extern s16 D_80062F40;
 extern s16 D_80062F48;
-extern u_long* D_80062FC4;
 extern s32 D_80062FE4;
 extern s32 D_80062FE8;
 extern u8 D_80063690[];
@@ -945,7 +935,26 @@ INCLUDE_ASM("asm/us/main/nonmatchings/18B8", func_8001DF24);
 
 INCLUDE_ASM("asm/us/main/nonmatchings/18B8", func_8001E040);
 
-INCLUDE_ASM("asm/us/main/nonmatchings/18B8", func_8001EB2C);
+void func_8001EB2C(s16 x, s16 y) {
+    RECT rect;
+
+    setSprt(D_80062F24.sprt);
+    SetSemiTrans(D_80062F24.sprt, 1);
+    SetShadeTex(D_80062F24.sprt, 1);
+    D_80062F24.sprt->x0 = x;
+    D_80062F24.sprt->y0 = y;
+    D_80062F24.sprt->u0 = 224;
+    D_80062F24.sprt->v0 = 8;
+    D_80062F24.sprt->w = 24;
+    D_80062F24.sprt->h = 16;
+    D_80062F24.sprt->clut = GetClut(0x100, 0x1E1);
+    AddPrim(D_80062FC4, D_80062F24.sprt++);
+    rect.x = 0;
+    rect.y = 0;
+    rect.w = 0xFF;
+    rect.h = 0xFF;
+    func_80026A34(0, 1, (u16)GetTPage(0, 2, 0x3C0, 0x100), &rect);
+}
 
 INCLUDE_ASM("asm/us/main/nonmatchings/18B8", func_8001EC70);
 

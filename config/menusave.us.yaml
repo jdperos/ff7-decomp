@@ -22,9 +22,9 @@ options:
   disassemble_all: true
   global_vram_start: 0x801D0000
   section_order:
+    - ".rodata"
     - ".text"
     - ".data"
-    - ".rodata"
     - ".bss"
   ld_generate_symbol_per_data_segment: true
 sha1: 430d54dbe01d9a0c670b1d2d2b5c642bdd1b3199
@@ -36,7 +36,8 @@ segments:
     align: 4
     subalign: 4
     subsegments:
-      - [0x0, c, savemenu]
+      - [0x0, rodata]
+      - [0x408, c, savemenu]
       - [0x4EC4, data]
       - [0x13698, bss]
   - [0x1BC44]
