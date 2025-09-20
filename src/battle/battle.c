@@ -898,8 +898,7 @@ INCLUDE_ASM("asm/us/battle/nonmatchings/battle", func_800DBF8C);
 
 INCLUDE_ASM("asm/us/battle/nonmatchings/battle", func_800DC0CC);
 
-void func_800DCF58(void) {
-}
+void func_800DCF58(void) {}
 
 INCLUDE_ASM("asm/us/battle/nonmatchings/battle", func_800DCF60);
 

@@ -30,5 +30,8 @@ clean:
 	git clean -xfd build/
 	git clean -xfd config/
 
+format: bin/clang-format
+	find src/ include/ -type f \( -name '*.c' -o -name '*.h' \) -print0 | xargs -0 -P$$(nproc) bin/clang-format -i
+
 build/us/%.o: %
 	ninja $@
