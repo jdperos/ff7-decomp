@@ -1,0 +1,34 @@
+name: build
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    if: github.repository == 'Xeeynamo/ff7-decomp'
+    runs-on: ubuntu-latest
+    steps:
+    - run: sudo apt-get install -y ninja-build 7zip binutils-mipsel-linux-gnu gcc-mipsel-linux-gnu
+    - uses: actions/setup-python@v6
+      with:
+        python-version: '3.13'
+    - uses: actions/checkout@v5
+      with:
+        submodules: true
+    - run: make requirements
+    - name: Check if code is formatted
+      run: |
+        make format
+        git diff --exit-code
+    - uses: actions/checkout@v5
+      with:
+        repository: xeeynamo/ff7-decomp-dependencies
+        token: ${{ secrets.FF7_DECOMP_DEPENDENCIES_TOKEN }}
+        path: tmp
+    - run: |
+        cat tmp/x* > tmp/ff7.7z
+        7z x -sdel tmp/ff7.7z -odisks/
+        rm tmp/*
+        ls -la disks/
+    - run: make build
