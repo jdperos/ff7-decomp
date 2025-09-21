@@ -1,19 +1,20 @@
 //! PSYQ=3.3 CC1=2.7.2
 #include <game.h>
 
-typedef struct {
-    u8 arg0[0x54];
-} Unk801D1D1C;
-
+extern const char D_801D018C[];
+extern const char D_801D0194[];
 extern s32 D_801D4EC4;
 extern s32 D_801D4EDC[];
+extern const char* D_801E2C78[];
 extern s32 D_801E2CB4;
+extern const char* D_801E2CB8[];
 extern s32 D_801E2CF4;
 extern s32 D_801E2CF8;
 extern s32 D_801E368C[];
 extern s32 D_801E3698;
 extern s32 D_801E36B8;
-extern Unk801D1D1C D_801E3864[];
+extern s32 D_801E3864[][0x54 / 4];
+extern s32 D_801E3D50;
 extern Unk80026448 D_801E3DFE[];
 extern s32 D_801E3E34[];
 extern s32 D_801E3EEC[];
@@ -44,9 +45,9 @@ s32 func_801D0448(s32 arg0) {
     D_80062F24.tile->y0 = 0;
     D_80062F24.tile->w = 0x180;
     D_80062F24.tile->h = 0xE8;
-    D_80062F24.tile->r0 = (u8)D_801D4EC4;
-    D_80062F24.tile->g0 = (u8)D_801D4EC4;
-    D_80062F24.tile->b0 = (u8)D_801D4EC4;
+    D_80062F24.tile->r0 = D_801D4EC4;
+    D_80062F24.tile->g0 = D_801D4EC4;
+    D_80062F24.tile->b0 = D_801D4EC4;
     AddPrim(D_80062FC4, D_80062F24.tile++);
     rect.x = 0;
     rect.y = 0;
@@ -84,7 +85,21 @@ INCLUDE_ASM("asm/us/menu/nonmatchings/savemenu", func_801D06B0);
 
 INCLUDE_ASM("asm/us/menu/nonmatchings/savemenu", func_801D1774);
 
-INCLUDE_ASM("asm/us/menu/nonmatchings/savemenu", func_801D1950);
+u16 func_801D1950(u16 len, u8* data) {
+    u16 i, j;
+    s32 sum = 0xFFFF;
+    for (i = 0; i < len; i++) {
+        sum ^= *(data + i) << 8;
+        for (j = 0; j < 8; j++) {
+            if (sum & 0x8000) {
+                sum = (sum * 2) ^ 0x1021;
+            } else {
+                sum *= 2;
+            }
+        }
+    }
+    return ~sum;
+}
 
 void func_801D19C4(void) {
     s32 temp_a0;
@@ -124,7 +139,9 @@ void func_801D19C4(void) {
 
 void func_801D1BA4(void) {}
 
-INCLUDE_ASM("asm/us/menu/nonmatchings/savemenu", func_801D1BAC);
+void func_801D1BAC(s32 arg0, s32 arg1) {
+    TestEvent(D_8009A024[arg1], arg1 * 4);
+}
 
 // strcmp?
 s32 func_801D1BE0(u8* arg0, u8* arg1) {
@@ -178,7 +195,7 @@ end:
 }
 #endif
 
-Unk801D1D1C* func_801D1D1C(s32 arg0) { return &D_801E3864[arg0]; }
+s32* func_801D1D1C(s32 arg0) { return D_801E3864[arg0]; }
 
 INCLUDE_ASM("asm/us/menu/nonmatchings/savemenu", func_801D1D40);
 
@@ -222,7 +239,24 @@ INCLUDE_ASM("asm/us/menu/nonmatchings/savemenu", func_801D224C);
 
 INCLUDE_ASM("asm/us/menu/nonmatchings/savemenu", func_801D2408);
 
-INCLUDE_ASM("asm/us/menu/nonmatchings/savemenu", func_801D2A34);
+s16 func_801D2A34(s32 save_id) {
+    char sp10[0x40];
+    s32 ret;
+    s32 slot;
+
+    if (save_id & 0x10) {
+        func_80042DD8(&sp10, D_801D018C, D_801E2C78[save_id & 15]);
+    } else {
+        func_80042DD8(&sp10, D_801D0194, D_801E2C78[save_id & 15]);
+    }
+    slot = save_id & 15;
+    D_801E3D50 = slot;
+    ret = func_801D2408(&sp10, D_801E2CB8[slot]);
+    if (!(s16)ret) {
+        __builtin_memcpy(&D_801E3864[slot], D_8009C6E4, 0x54);
+    }
+    return ret;
+}
 
 void func_801D2B58(u16 arg0) {
     D_8009A000 = 0x30;
@@ -296,9 +330,39 @@ void func_801D3318(void) {
     TestEvent(D_8009A024[7]);
 }
 
-INCLUDE_ASM("asm/us/menu/nonmatchings/savemenu", func_801D3370);
+s32 func_801D3370(void) {
+    while (1) {
+        if (TestEvent(D_8009A024[0]) == 1) {
+            return 0;
+        }
+        if (TestEvent(D_8009A024[1]) == 1) {
+            return 1;
+        }
+        if (TestEvent(D_8009A024[2]) == 1) {
+            return 2;
+        }
+        if (TestEvent(D_8009A024[3]) == 1) {
+            return 3;
+        }
+    }
+}
 
-INCLUDE_ASM("asm/us/menu/nonmatchings/savemenu", func_801D33F4);
+s32 func_801D33F4(void) {
+    while (1) {
+        if (TestEvent(D_8009A024[4]) == 1) {
+            return 0;
+        }
+        if (TestEvent(D_8009A024[5]) == 1) {
+            return 1;
+        }
+        if (TestEvent(D_8009A024[6]) == 1) {
+            return 2;
+        }
+        if (TestEvent(D_8009A024[7]) == 1) {
+            return 3;
+        }
+    }
+}
 
 INCLUDE_ASM("asm/us/menu/nonmatchings/savemenu", func_801D3478);
 
