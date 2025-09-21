@@ -46,4 +46,8 @@ void func_80026448(Unk80026448* arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4,
                    s32 arg5, s32 arg6, s32 arg7, s32 arg8, s32 arg9, s32 arg10,
                    s32 arg11, s32 arg12, u16 arg13);
 
+// from overlays
+extern s32 D_8019DAA0;
+extern s32 D_8019D5E8;
+
 #endif
