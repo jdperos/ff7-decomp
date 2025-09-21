@@ -4,8 +4,6 @@ import ninja_syntax
 import yaml
 
 CPP_FLAGS = "-Iinclude -Iinclude/psxsdk -DUSE_INCLUDE_ASM"
-CC_MAIN_FLAGS = "-O2 -G8"
-CC_OVL_FLAGS = "-O2 -G0"
 LD_FLAGS = ""
 
 nw: ninja_syntax.Writer = None
@@ -65,10 +63,10 @@ def parse_compiler_params(line: str) -> CompilerParams:
             raise Exception(f"compiler flag {param} is invalid")
         if key == "PSYQ":
             if value == "3.3":
-                c.cc1 = "cc1-psx-263"
+                c.cc1 = "cc1-psx-26"
                 c.as_flags = "--expand-div --aspsx-version=2.21"
             elif value == "3.5":
-                c.cc1 = "cc1-psx-263"
+                c.cc1 = "cc1-psx-26"
                 c.as_flags = "--expand-div --aspsx-version=2.34"
             elif value == "3.6":
                 c.cc1 = "cc1-psx-272"
@@ -76,6 +74,13 @@ def parse_compiler_params(line: str) -> CompilerParams:
             elif value == "4.0":
                 c.cc1 = "cc1-psx-272"
                 c.as_flags = "--expand-div --aspsx-version=2.56"
+            else:
+                raise Exception(f"{key} value {value} is not recognized")
+        elif key == "CC1":
+            if value == "2.6.3":
+                c.cc1 = "cc1-psx-26"
+            elif value == "2.7.2":
+                c.cc1 = "cc1-psx-272"
             else:
                 raise Exception(f"{key} value {value} is not recognized")
         elif key == "G":
@@ -124,7 +129,7 @@ def add_s(cfg: any, file_name: str):
     )
 
 
-def add_c(cfg: any, file_name: str, cc_flags: str):
+def add_c(cfg: any, file_name: str):
     in_path = f"{src_path(cfg)}/{file_name}.c"
     out_path = f"{build_path(cfg)}/{in_path}.o"
     if out_path in objs:
@@ -205,10 +210,7 @@ def add_splat_config(file_name: str):
             elif kind == "asm":
                 add_s(cfg, name)
             elif kind == "c":
-                if is_main:
-                    add_c(cfg, name, CC_MAIN_FLAGS)
-                else:
-                    add_c(cfg, name, CC_OVL_FLAGS)
+                add_c(cfg, name)
     output_name = f"{build_path(cfg)}/{basename(cfg)}.elf"
     sym_export = "config/sym_export.us.txt"
     if is_main:
@@ -265,7 +267,7 @@ with open("build.ninja", "w") as f:
         "psx-cc",
         command=(
             f"mipsel-linux-gnu-cpp {CPP_FLAGS} -lang-c -Iinclude -Iinclude/psxsdk -undef -Wall -fno-builtin $in"
-            f" | bin/cc1-psx-272 -quiet -mcpu=3000 -g -mgas -gcoff $cc_flags"
+            f" | bin/$cc1 -quiet -mcpu=3000 -g -mgas -gcoff $cc_flags"
             " | python3 tools/maspsx/maspsx.py $as_flags"
             " | mipsel-linux-gnu-as -Iinclude -march=r3000 -mtune=r3000 -no-pad-sections -O1 -G0 -o $out"
         ),

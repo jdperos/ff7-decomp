@@ -1,4 +1,4 @@
-//! PSYQ=3.3
+//! PSYQ=3.3 CC1=2.7.2
 #include <game.h>
 
 typedef struct {
