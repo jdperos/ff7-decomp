@@ -1,3 +1,4 @@
+//! PSYQ=3.3
 #include <game.h>
 
 typedef struct {
@@ -24,6 +25,7 @@ extern s32 D_801E3850;
 extern s32 D_801E3860;
 extern s32 D_801E8F44[];
 
+void func_801D19C4(void);
 void func_801D1BA4(void);
 
 void func_801D0408(u16 arg0) {
@@ -84,9 +86,6 @@ INCLUDE_ASM("asm/us/menu/nonmatchings/savemenu", func_801D1774);
 
 INCLUDE_ASM("asm/us/menu/nonmatchings/savemenu", func_801D1950);
 
-#ifndef NON_MATCHINGS
-INCLUDE_ASM("asm/us/menu/nonmatchings/savemenu", func_801D19C4);
-#else
 void func_801D19C4(void) {
     s32 temp_a0;
     s32 i;
@@ -122,7 +121,6 @@ void func_801D19C4(void) {
         D_801E8F38[i][2] = 0;
     }
 }
-#endif
 
 void func_801D1BA4(void) {}
 

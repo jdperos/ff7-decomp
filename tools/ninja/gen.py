@@ -1,5 +1,6 @@
+from dataclasses import dataclass
+
 import ninja_syntax
-import os
 import yaml
 
 CPP_FLAGS = "-Iinclude -Iinclude/psxsdk -DUSE_INCLUDE_ASM"
@@ -38,6 +39,72 @@ def asset_path(cfg):
 def platform(cfg):
     return cfg["options"]["platform"]
 
+@dataclass
+class CompilerParams:
+    cc1: str
+    cc_opt: str
+    cc_gp: str
+    as_flags: str
+
+
+def default_compiler_params() -> CompilerParams:
+    return CompilerParams("cc1-psx-272", "-O2", "-G0", "--expand-div --aspsx-version=2.34")
+
+
+def parse_compiler_params(line: str) -> CompilerParams:
+    c = default_compiler_params()
+    for param in line.strip().split(' '):
+        pair = param.split('=')
+        if not pair:
+            continue
+        if len(pair) == 2:
+            key, value = pair[0].strip(), pair[1].strip()
+        elif len(pair) == 1:
+            key, value = pair[0].strip(), ""
+        else:
+            raise Exception(f"compiler flag {param} is invalid")
+        if key == "PSYQ":
+            if value == "3.3":
+                c.cc1 = "cc1-psx-263"
+                c.as_flags = "--expand-div --aspsx-version=2.21"
+            elif value == "3.5":
+                c.cc1 = "cc1-psx-263"
+                c.as_flags = "--expand-div --aspsx-version=2.34"
+            elif value == "3.6":
+                c.cc1 = "cc1-psx-272"
+                c.as_flags = "--expand-div --aspsx-version=2.34"
+            elif value == "4.0":
+                c.cc1 = "cc1-psx-272"
+                c.as_flags = "--expand-div --aspsx-version=2.56"
+            else:
+                raise Exception(f"{key} value {value} is not recognized")
+        elif key == "G":
+            try:
+                n = int(value)
+                c.cc_gp = f"-G{n}"
+            except ValueError:
+                raise Exception(f"{key} value {value} is not a valid integer")
+        elif key == "O":
+            try:
+                n = int(value)
+                c.cc_opt = f"-O{n}"
+            except ValueError:
+                raise Exception(f"{key} value {value} is not a valid integer")
+        else:
+            raise Exception(f"{key} is not recognized")
+    return c
+
+
+def get_compiler_params(source_file_name: str) -> CompilerParams:
+    with open(source_file_name, "r") as file:
+        for i in range(10): # read the top 10 lines of code
+            line = file.readline()
+            if not line:
+                break
+            if line.startswith("//!"):
+                return parse_compiler_params(line[3:])
+    return default_compiler_params()
+
 
 def add_s(cfg: any, file_name: str):
     in_path = f"{asm_path(cfg)}/{file_name}.s"
@@ -62,6 +129,7 @@ def add_c(cfg: any, file_name: str, cc_flags: str):
     out_path = f"{build_path(cfg)}/{in_path}.o"
     if out_path in objs:
         return
+    compiler_flags = get_compiler_params(in_path)
     objs.append(out_path)
     nw.build(
         rule=f"{platform(cfg)}-cc",
@@ -69,7 +137,9 @@ def add_c(cfg: any, file_name: str, cc_flags: str):
         inputs=[in_path],
         implicit=["include/common.h", "include/game.h"],
         variables={
-            "cc_flags": cc_flags,
+            "cc1": compiler_flags.cc1,
+            "as_flags": compiler_flags.as_flags,
+            "cc_flags": f"{compiler_flags.cc_opt} {compiler_flags.cc_gp}",
         },
     )
     nw.build(
@@ -196,7 +266,7 @@ with open("build.ninja", "w") as f:
         command=(
             f"mipsel-linux-gnu-cpp {CPP_FLAGS} -lang-c -Iinclude -Iinclude/psxsdk -undef -Wall -fno-builtin $in"
             f" | bin/cc1-psx-272 -quiet -mcpu=3000 -g -mgas -gcoff $cc_flags"
-            " | python3 tools/maspsx/maspsx.py  --expand-div --aspsx-version=2.34"
+            " | python3 tools/maspsx/maspsx.py $as_flags"
             " | mipsel-linux-gnu-as -Iinclude -march=r3000 -mtune=r3000 -no-pad-sections -O1 -G0 -o $out"
         ),
         description="psx cc $in",

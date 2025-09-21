@@ -1,3 +1,4 @@
+//! G=8
 #include <game.h>
 
 typedef enum {
