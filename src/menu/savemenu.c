@@ -1,6 +1,22 @@
 //! PSYQ=3.3 CC1=2.7.2
 #include <game.h>
 
+const char D_801D0050[] = "BASCUS-94163FF7-S15";
+const char D_801D0064[] = "BASCUS-94163FF7-S14";
+const char D_801D0078[] = "BASCUS-94163FF7-S13";
+const char D_801D008C[] = "BASCUS-94163FF7-S12";
+const char D_801D00A0[] = "BASCUS-94163FF7-S11";
+const char D_801D00B4[] = "BASCUS-94163FF7-S10";
+const char D_801D00C8[] = "BASCUS-94163FF7-S09";
+const char D_801D00DC[] = "BASCUS-94163FF7-S08";
+const char D_801D00F0[] = "BASCUS-94163FF7-S07";
+const char D_801D0104[] = "BASCUS-94163FF7-S06";
+const char D_801D0118[] = "BASCUS-94163FF7-S05";
+const char D_801D012C[] = "BASCUS-94163FF7-S04";
+const char D_801D0140[] = "BASCUS-94163FF7-S03";
+const char D_801D0154[] = "BASCUS-94163FF7-S02";
+const char D_801D0168[] = "BASCUS-94163FF7-S01";
+
 extern const char D_801D018C[];
 extern const char D_801D0194[];
 extern s32 D_801D4EC4;
@@ -12,7 +28,13 @@ extern s32 D_801E2CF4;
 extern s32 D_801E2CF8;
 extern s32 D_801E368C[];
 extern s32 D_801E3698;
+extern s32 D_801E36B0;
 extern s32 D_801E36B8;
+extern s32 D_801E36B4;
+extern s8 D_801E36BC[][0x5C];
+extern s8 D_801E3774[][0x14];
+extern s32* D_801E3854;
+extern s32 D_801E3858[2];
 extern s32 D_801E3864[][0x54 / 4];
 extern s32 D_801E3D50;
 extern Unk80026448 D_801E3DFE[];
@@ -83,7 +105,43 @@ void func_801D0670(void) {
 
 INCLUDE_ASM("asm/us/menu/nonmatchings/savemenu", func_801D06B0);
 
-INCLUDE_ASM("asm/us/menu/nonmatchings/savemenu", func_801D1774);
+s32 func_801D1774(void) {
+    s32 ret;
+    s32 i;
+
+    func_80021044(D_801E36BC, &D_801E3774);
+    i = 0;
+    D_801E36B0 = 0;
+    func_801D05C0(1);
+    D_801E36B4 = 0;
+    while (1) {
+        func_8001CB48();
+        func_800269C0(D_80077F64[D_801E36B4]);
+        D_801E3854 = &D_801E3858[D_801E36B4];
+        func_8004418C(D_801E3854, 1);
+        func_80026A00(D_801E3854);
+        func_8001F710();
+        ret = func_801D06B0(i);
+        if (D_801E36B0 == -1) {
+            break;
+        }
+        func_80043DD8(0);
+        VSync(0);
+        func_800444AC(D_801E3774[D_801E36B4]);
+        func_800443B0(D_801E36BC[D_801E36B4]);
+        func_8004433C(D_801E3854);
+        D_801E36B4 ^= 1;
+        i++;
+    }
+    func_801D0670();
+    VSync(0);
+    func_800444AC(D_801E3774[0]);
+    func_800443B0(D_801E36BC[0]);
+    VSync(0);
+    func_800444AC(D_801E3774[1]);
+    func_800443B0(D_801E36BC[1]);
+    return ret;
+}
 
 u16 func_801D1950(u16 len, u8* data) {
     u16 i, j;
@@ -195,6 +253,9 @@ end:
 }
 #endif
 
+const char D_801D018C[] = "bu10:%s";
+const char D_801D0194[] = "bu00:%s";
+
 s32* func_801D1D1C(s32 arg0) { return D_801E3864[arg0]; }
 
 INCLUDE_ASM("asm/us/menu/nonmatchings/savemenu", func_801D1D40);
@@ -238,6 +299,25 @@ void func_801D21F0(u8* arg0, u8* arg1) {
 INCLUDE_ASM("asm/us/menu/nonmatchings/savemenu", func_801D224C);
 
 INCLUDE_ASM("asm/us/menu/nonmatchings/savemenu", func_801D2408);
+
+// clang-format off
+// most likely the memcard title in shift-jis format
+const s16 D_801D019C[] = {0x6582, 0x6582, 0x5682, 0x5E81, 0x7282, 0x6082, 0x7582, 0x6482, 0x5082, 0x5482, 0x5E81, 0x5082, 0x5082, 0x4681, 0x5082, 0x5082, 0, 0};
+const s16 D_801D01C0[] = {0x6582, 0x6582, 0x5682, 0x5E81, 0x7282, 0x6082, 0x7582, 0x6482, 0x5082, 0x5382, 0x5E81, 0x5082, 0x5082, 0x4681, 0x5082, 0x5082, 0, 0};
+const s16 D_801D01E4[] = {0x6582, 0x6582, 0x5682, 0x5E81, 0x7282, 0x6082, 0x7582, 0x6482, 0x5082, 0x5282, 0x5E81, 0x5082, 0x5082, 0x4681, 0x5082, 0x5082, 0, 0};
+const s16 D_801D0208[] = {0x6582, 0x6582, 0x5682, 0x5E81, 0x7282, 0x6082, 0x7582, 0x6482, 0x5082, 0x5182, 0x5E81, 0x5082, 0x5082, 0x4681, 0x5082, 0x5082, 0, 0};
+const s16 D_801D022C[] = {0x6582, 0x6582, 0x5682, 0x5E81, 0x7282, 0x6082, 0x7582, 0x6482, 0x5082, 0x5082, 0x5E81, 0x5082, 0x5082, 0x4681, 0x5082, 0x5082, 0, 0};
+const s16 D_801D0250[] = {0x6582, 0x6582, 0x5682, 0x5E81, 0x7282, 0x6082, 0x7582, 0x6482, 0x5082, 0x4F82, 0x5E81, 0x5082, 0x5082, 0x4681, 0x5082, 0x5082, 0, 0};
+const s16 D_801D0274[] = {0x6582, 0x6582, 0x5682, 0x5E81, 0x7282, 0x6082, 0x7582, 0x6482, 0x4F82, 0x5882, 0x5E81, 0x4F82, 0x4F82, 0x4681, 0x4F82, 0x4F82, 0, 0};
+const s16 D_801D0298[] = {0x6582, 0x6582, 0x5682, 0x5E81, 0x7282, 0x6082, 0x7582, 0x6482, 0x4F82, 0x5782, 0x5E81, 0x4F82, 0x4F82, 0x4681, 0x4F82, 0x4F82, 0, 0};
+const s16 D_801D02BC[] = {0x6582, 0x6582, 0x5682, 0x5E81, 0x7282, 0x6082, 0x7582, 0x6482, 0x4F82, 0x5682, 0x5E81, 0x4F82, 0x4F82, 0x4681, 0x4F82, 0x4F82, 0, 0};
+const s16 D_801D02E0[] = {0x6582, 0x6582, 0x5682, 0x5E81, 0x7282, 0x6082, 0x7582, 0x6482, 0x4F82, 0x5582, 0x5E81, 0x4F82, 0x4F82, 0x4681, 0x4F82, 0x4F82, 0, 0};
+const s16 D_801D0304[] = {0x6582, 0x6582, 0x5682, 0x5E81, 0x7282, 0x6082, 0x7582, 0x6482, 0x4F82, 0x5482, 0x5E81, 0x4F82, 0x4F82, 0x4681, 0x4F82, 0x4F82, 0, 0};
+const s16 D_801D0328[] = {0x6582, 0x6582, 0x5682, 0x5E81, 0x7282, 0x6082, 0x7582, 0x6482, 0x4F82, 0x5382, 0x5E81, 0x4F82, 0x4F82, 0x4681, 0x4F82, 0x4F82, 0, 0};
+const s16 D_801D034C[] = {0x6582, 0x6582, 0x5682, 0x5E81, 0x7282, 0x6082, 0x7582, 0x6482, 0x4F82, 0x5282, 0x5E81, 0x4F82, 0x4F82, 0x4681, 0x4F82, 0x4F82, 0, 0};
+const s16 D_801D0370[] = {0x6582, 0x6582, 0x5682, 0x5E81, 0x7282, 0x6082, 0x7582, 0x6482, 0x4F82, 0x5182, 0x5E81, 0x4F82, 0x4F82, 0x4681, 0x4F82, 0x4F82, 0, 0};
+const s16 D_801D0394[] = {0x6582, 0x6582, 0x5682, 0x5E81, 0x7282, 0x6082, 0x7582, 0x6482, 0x4F82, 0x5082, 0x5E81, 0x4F82, 0x4F82, 0x4681, 0x4F82, 0x4F82, 0, 0};
+// clang-format on
 
 s16 func_801D2A34(s32 save_id) {
     char sp10[0x40];

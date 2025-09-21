@@ -35,6 +35,7 @@ extern Gpu D_80062F24;
 extern s32 D_80062F58;
 extern u_long* D_80062FC4;
 extern s32 D_800756F8[];
+extern s8 D_80077F64[][0x3400];
 extern s16 D_8009A000;
 extern s32 D_8009A004;
 extern s32 D_8009A008;
