@@ -4,6 +4,11 @@
 #include <common.h>
 #include <libgpu.h>
 
+typedef enum {
+    LABEL_TIME,
+    LABEL_GIL,
+} Labels;
+
 typedef struct {
     s16 unk0;
     s16 unk2;
@@ -29,6 +34,7 @@ typedef union {
     BLK_FILL* blk_fill;
 } Gpu;
 
+extern u8 D_800492F0[][12]; // see Labels enum
 extern u16 D_80062D7E;
 extern s32 D_80062DCC;
 extern Gpu D_80062F24;

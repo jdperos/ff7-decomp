@@ -79,6 +79,7 @@ extern s32 D_80048D1C;
 extern s32 D_80048D20;
 extern Yamada D_80048D84[];
 extern s32 D_80048DD4[];
+extern u8 D_80049208[12]; // menu color RGB-quadruplet
 extern u8 D_80063690[];
 extern u16 D_80069490[];
 extern u16 D_800707BC;
@@ -1039,11 +1040,13 @@ void func_8001DE0C(Unk8001DE0C* arg0, s16 arg1, s16 arg2, s16 arg3, s32 arg4) {
     arg0->unk6 = arg4;
 }
 
+// translate window dialog
 void func_8001DE24(Unk8001DE0C* arg0, s32 arg1, s32 arg2) {
     arg0->unk0 = arg0->unk0 + arg1;
     arg0->unk2 = arg0->unk2 + arg2;
 }
 
+// set window dialog rect
 void func_8001DE40(Unk8001DE0C* arg0, Unk8001DE0C* arg1) {
     arg0->unk0 = arg1->unk0;
     arg0->unk2 = arg1->unk2;
@@ -1059,11 +1062,11 @@ INCLUDE_ASM("asm/us/main/nonmatchings/18B8", func_8001DEB0);
 INCLUDE_ASM("asm/us/main/nonmatchings/18B8", func_8001DEF0);
 #else
 // only matches with --aspsx-version=2.21
-extern u8 D_80049208[12];
-void func_8001DEF0(u8* arg0) {
+// sets the menu color with a quadruplet of RGB values
+void func_8001DEF0(u8* menu_colors) {
     s32 i;
     for (i = 0; i < 12; i++) {
-        D_80049208[i] = *arg0++;
+        D_80049208[i] = *menu_colors++;
     }
 }
 #endif
@@ -1081,6 +1084,7 @@ void func_8001DF24(RECT* rect, u8 arg1, u8 arg2, u8 arg3) {
     AddPrim(D_80062FC4, D_80062F24.tile++);
 }
 
+// prints menu window
 INCLUDE_ASM("asm/us/main/nonmatchings/18B8", func_8001E040);
 
 void func_8001EB2C(s16 x, s16 y) {
@@ -1426,10 +1430,13 @@ void func_80026B5C(void) {}
 
 INCLUDE_ASM("asm/us/main/nonmatchings/18B8", func_80026B64);
 
+// strlen but for FF7 strings
+// FF7 string is 0x00: ' ', 0x10: '0', 0x21: 'A', 0xFF: terminator
 INCLUDE_ASM("asm/us/main/nonmatchings/18B8", func_80026B70);
 
 INCLUDE_ASM("asm/us/main/nonmatchings/18B8", func_80026C5C);
 
+// print FF7 string
 INCLUDE_ASM("asm/us/main/nonmatchings/18B8", func_80026F44);
 
 INCLUDE_ASM("asm/us/main/nonmatchings/18B8", func_8002708C);

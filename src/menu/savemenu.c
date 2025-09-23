@@ -1,6 +1,19 @@
 //! PSYQ=3.3 CC1=2.7.2
 #include <game.h>
 
+typedef struct {
+    u32 checksum;
+    u8 leader_level;
+    u8 party[3];
+    s8 leader_name[0x10];
+    s32 unk18;
+    s32 unk1C;
+    s32 gil;
+    s32 time;
+    s8 place_name[0x20];
+    s32 menu_color[3];
+} SaveHeder;
+
 const char D_801D0050[] = "BASCUS-94163FF7-S15";
 const char D_801D0064[] = "BASCUS-94163FF7-S14";
 const char D_801D0078[] = "BASCUS-94163FF7-S13";
@@ -26,7 +39,9 @@ extern s32 D_801E2CB4;
 extern const char* D_801E2CB8[];
 extern s32 D_801E2CF4;
 extern s32 D_801E2CF8;
+extern RECT D_801E3650[3];
 extern s32 D_801E368C[];
+extern u8 D_801E3684[]; // "Level" label
 extern s32 D_801E3698;
 extern s32 D_801E36B0;
 extern s32 D_801E36B8;
@@ -109,6 +124,7 @@ void func_801D0670(void) {
     func_801D1BA4();
 }
 
+// generic save menu handler
 INCLUDE_ASM("asm/us/menu/nonmatchings/savemenu", func_801D06B0);
 
 s32 func_801D1774(void) {
@@ -474,22 +490,70 @@ s32 func_801D3698(s32 arg0, s32 arg1) {
     return ret;
 }
 
-INCLUDE_ASM("asm/us/menu/nonmatchings/savemenu", func_801D370C);
+void func_801D370C(s32 x, s32 y, s32 slot_no) {
+    RECT sp28;
+    RECT rect;
+    s32 i;
+    s32 j;
+    SaveHeder* save;
+    u8* data;
+
+    save = (SaveHeder*)func_801D1D1C(slot_no);
+    data = (u8*)save;
+    func_80026F44(192, y + 46, save->place_name, 7);
+    for (i = 0; i < 3; i++) {
+        if (data[i + 5] != 0xFF) {
+            func_8001D180(
+                22 + i * 52, y + 6, 48, 48, (data[i + 5] >= 5) ? 48 : 0,
+                (data[i + 5] % 5) * 48, 48, 48, data[i + 5], 0);
+        }
+    }
+
+    rect.x = 0;
+    rect.y = 0;
+    rect.w = 0xFF;
+    rect.h = 0xFF;
+    func_80026A34(0, 1, 127, &rect);
+    func_80028E00(
+        func_80026B70(D_801E3684) + 194, y + 28, save->leader_level, 2, 7);
+    func_8002708C(338, y + 12, 213, 7); // prints the ':' symbol maybe?
+    func_80029114(324, y + 11, func_80023788(save->time), 2, 7);
+    func_80029114(345, y + 11, func_8002382C(save->time), 2, 7);
+    func_80028E00(309, y + 25, save->gil, 7, 7);
+
+    rect.x = 0;
+    rect.y = 0;
+    rect.w = 0x100;
+    rect.h = 0x100;
+    func_80026A34(0, 1, 127, &rect);
+    func_80026F44(189, y + 26, D_801E3684, 5);
+    func_80026F44(184, y + 8, save->leader_name, 7);
+    func_80026F44(284, y + 9, D_800492F0[LABEL_TIME], 7);
+    func_80026F44(284, y + 23, D_800492F0[LABEL_GIL], 7);
+    func_8001DEF0(save->menu_color);
+
+    for (j = 0; j < 3; j++) {
+        func_8001DE40(&sp28, &D_801E3650[j]);
+        func_8001DE24(&sp28, 0, y);
+        func_8001E040(&sp28);
+    }
+}
 
 void func_801D39C4(void) {
     D_801E3698 = 0;
     D_801E2CF8 = 7;
-    func_8001DEF0(&D_801E368C);
-    func_80025D14(&D_801D4EDC, 0x380, 0, 0, 0x1E0);
+    func_8001DEF0(D_801E368C);
+    func_80025D14(D_801D4EDC, 0x380, 0, 0, 0x1E0);
     func_80043DD8(0);
     func_80026448(D_801E3DFE, 0, 1, 1, 2, 0, 0, 1, 2, 0, 0, 0, 1, 0);
-    func_80025CD4(&D_801E3F2C);
-    func_80025B8C(&D_801E8F44);
-    func_80025C14(&D_801E4538);
+    func_80025CD4(D_801E3F2C);
+    func_80025B8C(D_801E8F44);
+    func_80025C14(D_801E4538);
     func_80025DF8();
     func_801D19C4();
 }
 
+// title screen state machine
 INCLUDE_ASM("asm/us/menu/nonmatchings/savemenu", func_801D3AB0);
 
 void func_801D4C38(void) {
@@ -503,7 +567,7 @@ void func_801D4C38(void) {
     func_800443B0(D_801E3E34);
 }
 
-// title screen loop?
+// title screen loop
 s32 func_801D4CC0(void) {
     s32 i;
     s32 ret;
