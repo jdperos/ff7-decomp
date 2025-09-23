@@ -1238,11 +1238,12 @@ void func_80024E18(s32 arg0) {
     func_801D4118(arg0);
 }
 
+// This should be the title screen handler
 void func_80024E5C(void) {
-    func_800211C4(0x10);
-    do {
+    func_800211C4(0x10); // load title screen?
+    do {                 // wait until it's loaded?
     } while (func_80034B44());
-    func_801D4CC0();
+    func_801D4CC0(); // jump into title screen loop?
 }
 
 void func_80024E94(void) {

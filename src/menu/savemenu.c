@@ -37,9 +37,15 @@ extern s32* D_801E3854;
 extern s32 D_801E3858[2];
 extern s32 D_801E3864[][0x54 / 4];
 extern s32 D_801E3D50;
+extern s32 D_801E3D54;
+extern s32 D_801E3D58; // backbuffer id?
+extern u8* D_801E3D5C; // maybe OT?
+extern u8 D_801E3D60[][0x10];
 extern Unk80026448 D_801E3DFE[];
-extern s32 D_801E3E34[];
-extern s32 D_801E3EEC[];
+extern u8 D_801E3E34[][0x5C]; // list of primitives?
+extern s8 D_801E3E90[];
+extern u8 D_801E3EEC[][20];
+extern s32 D_801E3F00;
 extern s32 D_801E3F2C[];
 extern s32 D_801E4538[];
 extern Unk80026448 D_801E379C[];
@@ -109,7 +115,7 @@ s32 func_801D1774(void) {
     s32 ret;
     s32 i;
 
-    func_80021044(D_801E36BC, &D_801E3774);
+    func_80021044(D_801E36BC, D_801E3774);
     i = 0;
     D_801E36B0 = 0;
     func_801D05C0(1);
@@ -160,11 +166,7 @@ u16 func_801D1950(u16 len, u8* data) {
 }
 
 void func_801D19C4(void) {
-    s32 temp_a0;
     s32 i;
-    s32 i_2;
-    s32 var_v1;
-    s32* var_s0;
 
     if (D_80062DCC == 0) {
         i = 0;
@@ -501,4 +503,43 @@ void func_801D4C38(void) {
     func_800443B0(D_801E3E34);
 }
 
-INCLUDE_ASM("asm/us/menu/nonmatchings/savemenu", func_801D4CC0);
+// title screen loop?
+s32 func_801D4CC0(void) {
+    s32 i;
+    s32 ret;
+
+    func_80021044(D_801E3E34, D_801E3EEC);
+    D_801E3D54 = 0;
+    func_801D39C4();
+    D_801E3D58 = 0;
+    for (i = 0;; i++) {
+        func_8001CB48();
+        func_800269C0(D_80077F64[D_801E3D58]);
+        D_801E3D5C = D_801E3D60[D_801E3D58];
+        func_8004418C(D_801E3D5C, 1);
+        func_80026A00(D_801E3D5C);
+        func_8001F710();
+        ret = func_801D3AB0(i);
+        if (D_801E3D54 == -1) {
+            break;
+        }
+        func_80043DD8(0);
+        VSync(0);
+        func_800444AC(D_801E3EEC[D_801E3D58]);
+        func_800443B0(D_801E3E34[D_801E3D58]);
+        func_8004433C(D_801E3D5C);
+        D_801E3D58 ^= 1; // flip back buffer ID?
+    }
+    func_801D4C38();
+    VSync(0);
+    func_800444AC(&D_801E3F00);
+    func_800443B0(D_801E3E90);
+    for (i = 0; i < 3; i++) {
+        if (D_8009CBDC[i] != 0xFF) {
+            func_80020058(i);
+            func_8001786C((u8)i);
+        }
+    }
+    func_80017678();
+    return ret;
+}
