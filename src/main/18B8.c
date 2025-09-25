@@ -1406,7 +1406,23 @@ INCLUDE_ASM("asm/us/main/nonmatchings/18B8", func_800262D8);
 
 INCLUDE_ASM("asm/us/main/nonmatchings/18B8", func_80026408);
 
-INCLUDE_ASM("asm/us/main/nonmatchings/18B8", func_80026448);
+void func_80026448(Unk80026448* arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4,
+                   s32 arg5, s32 arg6, s32 arg7, s32 arg8, s32 arg9, s32 arg10,
+                   s32 arg11, s32 arg12, u16 arg13) {
+    arg0->unkA = arg1;
+    arg0->unkB = arg2;
+    arg0->unkC = arg3;
+    arg0->unkD = arg4;
+    arg0->unk0 = arg5;
+    arg0->unk2 = arg6;
+    arg0->unk4 = arg7;
+    arg0->unk6 = arg8;
+    arg0->unkE = arg9;
+    arg0->unkF = arg10;
+    arg0->unk10 = arg11;
+    arg0->unk11 = arg12;
+    arg0->unk8 = arg13;
+}
 
 INCLUDE_ASM("asm/us/main/nonmatchings/18B8", func_800264A8);
 
