@@ -14,7 +14,7 @@ typedef struct {
     s16 unk2;
     s16 unk4;
     s16 unk6;
-    u16 unk8;
+    s16 unk8;
     s8 unkA;
     s8 unkB;
     s8 unkC;
@@ -23,7 +23,7 @@ typedef struct {
     s8 unkF;
     s8 unk10;
     s8 unk11;
-} Unk80026448;
+} Unk80026448; // size: 0x12
 
 typedef union {
     void* poly;
@@ -35,13 +35,16 @@ typedef union {
 } Gpu;
 
 extern u8 D_800492F0[][12]; // see Labels enum
+extern s16 D_80062D7C;
 extern u16 D_80062D7E;
 extern s32 D_80062DCC;
 extern Gpu D_80062F24;
+extern u16 D_80062F3C;
 extern s32 D_80062F58;
 extern u_long* D_80062FC4;
+extern s8 D_800706A4[][0x5C];
 extern s32 D_800756F8[];
-extern s8 D_80077F64[][0x3400];
+extern s8 D_80077F64[2][0x3400]; // polygon buffer
 extern s16 D_8009A000;
 extern s32 D_8009A004;
 extern s32 D_8009A008;

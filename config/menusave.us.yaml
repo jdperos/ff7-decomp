@@ -36,8 +36,7 @@ segments:
     align: 4
     subalign: 4
     subsegments:
-      - [0x0, rodata]
-      - [0x10, rodata]
+      - [0x0, .rodata, savemenu]
       - [0x50, .rodata, savemenu]
       - [0x3B8, rodata]
       - [0x3C8, rodata]
