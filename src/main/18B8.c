@@ -124,10 +124,10 @@ s16 D_80062D74 = 0x0000;
 s16 D_80062D76 = 0x0000;
 s16 D_80062D78 = 0x0000;
 s16 D_80062D7A = 0x0000;
-s16 D_80062D7C = 0x0000;
+u16 D_80062D7C = 0x0000;
 u16 D_80062D7E = 0x0000;
-s16 D_80062D80 = 0x0000;
-s16 D_80062D82 = 0x0000;
+u16 D_80062D80 = 0x0000;
+u16 D_80062D82 = 0x0000;
 s32 D_80062D84 = 0x00000000;
 s16 D_80062D88 = 0x0000;
 s16 D_80062D8A = 0x0000;
@@ -1087,6 +1087,7 @@ void func_8001DF24(RECT* rect, u8 arg1, u8 arg2, u8 arg3) {
 // prints menu window
 INCLUDE_ASM("asm/us/main/nonmatchings/18B8", func_8001E040);
 
+// print menu cursor
 void func_8001EB2C(s16 x, s16 y) {
     RECT rect;
 

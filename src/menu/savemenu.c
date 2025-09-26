@@ -1,97 +1,5 @@
 //! PSYQ=3.3 CC1=2.7.2
-#include <game.h>
-
-typedef struct {
-    u32 checksum;
-    u8 leader_level;
-    u8 party[3];
-    s8 leader_name[0x10];
-    s32 unk18;
-    s32 unk1C;
-    s32 gil;
-    s32 time;
-    s8 place_name[0x20];
-    s32 menu_color[3];
-} SaveHeder;
-
-typedef struct {
-    // this whole thing might be a D_801E379C[6]
-    /* 0x00 */ Unk80026448 D_801E379C[2];
-    /* 0x24 */ u8 unk24[0x40];
-    /* 0x64 */ s32 D_801E3800;
-    /* 0x68 */ s32 D_801E3804;
-    /* 0x6C */ Unk80026448 D_801E3808[2];
-} Menus; // size: 0x90
-
-extern const char D_801D018C[];
-extern const char D_801D0194[];
-extern s32 D_801D4EC4;
-extern RECT D_801D4EC8;
-extern RECT D_801D4ED0;
-extern u8 D_801D4EDC[];
-extern u8 D_801E2D20;
-extern u8 D_801E2D44[]; // string
-extern u8 D_801E2D68;
-extern u8 D_801E2DF8;
-extern u8 D_801E2E1C;
-extern u8 D_801DEEDC;
-extern s32 D_801DEEF4;
-extern RECT D_801DEEFC;
-extern u8 D_801E31A0;
-extern u8 D_801E2EAC[];
-extern const char* D_801E2C78[];
-extern s32 D_801E2CB4;
-extern const char* D_801E2CB8[];
-extern s32 D_801E32C0;
-extern s32 D_801E32F0;
-extern u8 D_801E3320[][0x30];
-extern s32 D_801E2CF4;
-extern s32 D_801E2CF8;
-extern s32 D_801E30EC;
-extern u8 D_801E3380[]; // "No Memory card"
-extern u8 D_801E33B0[]; // "No Memory card"
-extern s32 D_801E3440;
-extern s32 D_801E3530;
-extern RECT D_801E3650[3];
-extern s32 D_801E36A0;
-extern s32 D_801E36A4;
-extern s32 D_801E36A8;
-extern s32 D_801E36AC;
-extern s32 D_801E368C[];
-extern u8 D_801E3684[]; // "Level" label
-extern s32 D_801E3698;
-extern s32 D_801E36B0;
-extern s32 D_801E36B8;
-extern s32 D_801E36B4;
-extern s8 D_801E36BC[2][0x5C];
-extern s8 D_801E3774[2][0x14];
-extern Menus menus;
-extern s32* D_801E3854;
-extern s32 D_801E3858[2];
-extern s32 D_801E3864[][0x54 / 4];
-extern s32 D_801E3D50;
-extern s32 D_801E3D54;
-extern s32 D_801E3D58; // backbuffer id?
-extern u8* D_801E3D5C; // maybe OT?
-extern u8 D_801E3D60[][0x10];
-extern Unk80026448 D_801E3DFE[];
-extern u8 D_801E3E34[][0x5C]; // list of primitives?
-extern s8 D_801E3E90[];
-extern u8 D_801E3EEC[][20];
-extern s32 D_801E3F00;
-extern s32 D_801E3F2C[];
-extern s32 D_801E4538[];
-extern u8 D_801E8F38[2][3];
-extern s32 D_801E3850;
-extern s32 D_801E3860;
-extern u8 D_801E8F3B;
-extern s32 D_801E8F44[];
-
-void func_801D19C4(void);
-void func_801D1BA4(void);
-s16 func_801D2A34(s32 save_id);
-void func_801D3668(s32 arg0);
-void func_801D370C(s32 x, s32 y, s32 slot_no);
+#include "savemenu.h"
 
 void func_801D0408(u16 arg0) {
     D_8009A000 = 0x30;
@@ -217,9 +125,9 @@ int func_801D06B0(s32 arg0) {
         } else {
             func_800269D0();
             if (D_801E36B8 == 0) {
-                func_800269C0(((D_80062F58 * 5) << 0xC) + D_801D4EDC);
+                func_800269C0(D_80062F58 * 0x5000 + D_801D4EDC);
             } else {
-                func_800269C0(((D_801E36B4 * 5) << 0xC) + D_801D4EDC);
+                func_800269C0(D_801E36B4 * 0x5000 + D_801D4EDC);
             }
             if (D_801E3850 != 7 || (arg0 & 2)) {
                 func_8001EB2C(8, (menus.D_801E379C[1].unkB << 6) | 0x38);
@@ -923,73 +831,4 @@ void func_801D370C(s32 x, s32 y, s32 slot_no) {
         func_8001DE24(&sp28, 0, y);
         func_8001E040(&sp28);
     }
-}
-
-void func_801D39C4(void) {
-    D_801E3698 = 0;
-    D_801E2CF8 = 7;
-    func_8001DEF0(D_801E368C);
-    func_80025D14(D_801D4EDC, 0x380, 0, 0, 0x1E0);
-    func_80043DD8(0);
-    func_80026448(D_801E3DFE, 0, 1, 1, 2, 0, 0, 1, 2, 0, 0, 0, 1, 0);
-    func_80025CD4(D_801E3F2C);
-    func_80025B8C(D_801E8F44);
-    func_80025C14(D_801E4538);
-    func_80025DF8();
-    func_801D19C4();
-}
-
-// title screen state machine
-INCLUDE_ASM("asm/us/menu/nonmatchings/savemenu", func_801D3AB0);
-
-void func_801D4C38(void) {
-    func_80025ED4();
-    func_80025CD4(D_800756F8);
-    func_80025C94(D_801E3F2C);
-    func_80025BD0(D_801E8F44);
-    func_80025C54(D_801E4538);
-    func_801D1BA4();
-    func_800444AC(D_801E3EEC);
-    func_800443B0(D_801E3E34);
-}
-
-// title screen loop
-s32 func_801D4CC0(void) {
-    s32 i;
-    s32 ret;
-
-    func_80021044(D_801E3E34, D_801E3EEC);
-    D_801E3D54 = 0;
-    func_801D39C4();
-    D_801E3D58 = 0;
-    for (i = 0;; i++) {
-        func_8001CB48();
-        func_800269C0(D_80077F64[D_801E3D58]);
-        D_801E3D5C = D_801E3D60[D_801E3D58];
-        func_8004418C(D_801E3D5C, 1);
-        func_80026A00(D_801E3D5C);
-        func_8001F710();
-        ret = func_801D3AB0(i);
-        if (D_801E3D54 == -1) {
-            break;
-        }
-        func_80043DD8(0);
-        VSync(0);
-        func_800444AC(D_801E3EEC[D_801E3D58]);
-        func_800443B0(D_801E3E34[D_801E3D58]);
-        func_8004433C(D_801E3D5C);
-        D_801E3D58 ^= 1; // flip back buffer ID?
-    }
-    func_801D4C38();
-    VSync(0);
-    func_800444AC(&D_801E3F00);
-    func_800443B0(D_801E3E90);
-    for (i = 0; i < 3; i++) {
-        if (D_8009CBDC[i] != 0xFF) {
-            func_80020058(i);
-            func_8001786C((u8)i);
-        }
-    }
-    func_80017678();
-    return ret;
 }

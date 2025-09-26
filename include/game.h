@@ -11,18 +11,18 @@ typedef enum {
 
 typedef struct {
     s16 unk0;
-    s16 unk2;
+    s16 unk2; // current page
     s16 unk4;
-    s16 unk6;
+    s16 unk6; // total item count
     s16 unk8;
     s8 unkA;
-    s8 unkB;
+    s8 unkB; // selected element
     s8 unkC;
-    s8 unkD;
+    s8 unkD; // elements per page
     s8 unkE;
     s8 unkF;
     s8 unk10;
-    s8 unk11;
+    s8 unk11;  // scroll type: 0=no wrap, 1/2:wrap, 3>:infinite
 } Unk80026448; // size: 0x12
 
 typedef union {
@@ -35,8 +35,11 @@ typedef union {
 } Gpu;
 
 extern u8 D_800492F0[][12]; // see Labels enum
-extern s16 D_80062D7C;
-extern u16 D_80062D7E;
+extern u16 D_80062D7C;      // pressed button?
+extern u16 D_80062D7E;      // pressed button?
+extern u16 D_80062D80;      // tapped button
+extern u16 D_80062D82;      // repeated button
+extern s8 D_80062D99;
 extern s32 D_80062DCC;
 extern Gpu D_80062F24;
 extern u16 D_80062F3C;
@@ -50,6 +53,7 @@ extern s32 D_8009A004;
 extern s32 D_8009A008;
 extern s32 D_8009A024[8];
 extern s32 D_8009C6E4[0x54 / 4]; // memcard slot header?
+extern u16 D_8009D7BE;
 extern u8 D_8009CBDC[];
 extern u8 D_8009C778[];
 extern u8 D_8009C798[];
