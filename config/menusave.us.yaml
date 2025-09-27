@@ -37,10 +37,11 @@ segments:
     subalign: 4
     subsegments:
       - [0x0, .rodata, savemenu]
-      - [0x50, .rodata, savemenu]
       - [0x3B8, .rodata, title]
       - [0x408, c, savemenu]
       - [0x39C4, c, title]
       - [0x4EC4, data]
+      - [0x12C78, .data, savemenu]
+      - [0x13650, data]
       - [0x13698, bss]
   - [0x1BC44]

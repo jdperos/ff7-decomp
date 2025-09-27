@@ -10,7 +10,7 @@ OVL_US += WORLD/WORLD.BIN
 all: disks build
 
 .PHONY: build
-build: bin/cc1-psx-26 bin/cc1-psx-272 disks/us/FIELD/FIELD.BIN.dec
+build: bin/cc1-psx-26 bin/cc1-psx-272 bin/str disks/us/FIELD/FIELD.BIN.dec
 	@.venv/bin/python3 tools/ninja/gen.py && ninja
 	@mkdir -p expected/build
 	@rm -rf expected/build
@@ -49,6 +49,10 @@ requirements:
 
 build/us/%.o: %
 	ninja $@
+
+bin/str: tools/str.c
+	gcc -s -o $@ -O2 $<
+	chmod +x $@
 
 bin/%: bin/%.gz
 	sha256sum --check $<.sha256

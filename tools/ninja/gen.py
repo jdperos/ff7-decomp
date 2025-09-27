@@ -3,7 +3,7 @@ from dataclasses import dataclass
 import ninja_syntax
 import yaml
 
-CPP_FLAGS = "-Iinclude -Iinclude/psxsdk -DUSE_INCLUDE_ASM"
+CPP_FLAGS = "-Iinclude -Iinclude/psxsdk -DUSE_INCLUDE_ASM -DFF7_STR"
 LD_FLAGS = ""
 
 nw: ninja_syntax.Writer = None
@@ -37,6 +37,7 @@ def asset_path(cfg):
 def platform(cfg):
     return cfg["options"]["platform"]
 
+
 @dataclass
 class CompilerParams:
     cc1: str
@@ -46,13 +47,15 @@ class CompilerParams:
 
 
 def default_compiler_params() -> CompilerParams:
-    return CompilerParams("cc1-psx-272", "-O2", "-G0", "--expand-div --aspsx-version=2.34")
+    return CompilerParams(
+        "cc1-psx-272", "-O2", "-G0", "--expand-div --aspsx-version=2.34"
+    )
 
 
 def parse_compiler_params(line: str) -> CompilerParams:
     c = default_compiler_params()
-    for param in line.strip().split(' '):
-        pair = param.split('=')
+    for param in line.strip().split(" "):
+        pair = param.split("=")
         if not pair:
             continue
         if len(pair) == 2:
@@ -102,7 +105,7 @@ def parse_compiler_params(line: str) -> CompilerParams:
 
 def get_compiler_params(source_file_name: str) -> CompilerParams:
     with open(source_file_name, "r") as file:
-        for i in range(10): # read the top 10 lines of code
+        for i in range(10):  # read the top 10 lines of code
             line = file.readline()
             if not line:
                 break
@@ -267,7 +270,9 @@ with open("build.ninja", "w") as f:
         "psx-cc",
         command=(
             f"mipsel-linux-gnu-cpp {CPP_FLAGS} -lang-c -Iinclude -Iinclude/psxsdk -undef -Wall -fno-builtin $in"
-            f" | bin/$cc1 -quiet -mcpu=3000 -g -mgas -gcoff $cc_flags"
+            " | bin/str"  # convert C-style strings _S("FOO") into FF7-style strings "\x26\x2F\x2F\xFF"
+            " | iconv --from-code=UTF-8 --to-code=Shift-JIS"
+            " | bin/$cc1 -quiet -mcpu=3000 -g -mgas -gcoff $cc_flags"
             " | python3 tools/maspsx/maspsx.py $as_flags"
             " | mipsel-linux-gnu-as -Iinclude -march=r3000 -mtune=r3000 -no-pad-sections -O1 -G0 -o $out"
         ),

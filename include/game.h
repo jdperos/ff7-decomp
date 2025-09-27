@@ -4,6 +4,13 @@
 #include <common.h>
 #include <libgpu.h>
 
+#ifndef FF7_STR
+#define _S(x) x       // check the usage of 'bin/str' to see how this works
+#define _SL(len, x) x // same as _S, but for fixed-length strings with padding
+#endif
+
+typedef unsigned char ff7s[];
+
 typedef enum {
     LABEL_TIME,
     LABEL_GIL,

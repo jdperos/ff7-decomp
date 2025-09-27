@@ -92,10 +92,10 @@ int func_801D06B0(s32 arg0) {
     case 0:
         func_8001EB2C(D_801D4EC8.x - 18,
                       D_801D4EC8.y + 6 + (menus.D_801E379C[0].unkB * 12));
-        func_80026F44(0xA, 0xB, &D_801E2D20, 7);
-        func_80026F44(D_801D4EC8.x + 12, D_801D4EC8.y + 5, &D_801E2D20 + 72,
+        func_80026F44(0xA, 0xB, D_801E2CFC[1], 7);
+        func_80026F44(D_801D4EC8.x + 12, D_801D4EC8.y + 5, D_801E2CFC[3],
                       -(D_801E8F38[0][0] != 0) & 7);
-        func_80026F44(D_801D4EC8.x + 12, D_801D4EC8.y + 17, &D_801E2D20 + 108,
+        func_80026F44(D_801D4EC8.x + 12, D_801D4EC8.y + 17, D_801E2CFC[4],
                       -(D_801E8F3B != 0) & 7);
         rect.x = 0;
         rect.y = 0;
@@ -112,11 +112,9 @@ int func_801D06B0(s32 arg0) {
         rect.w = 0x100;
         rect.h = 0x100;
         func_80026A34(0, 1, 0x7F, &rect);
-        func_80026F44(D_801D4ED0.x + 0xA, D_801D4ED0.y + 6, &D_801E31A0, 7);
-        func_80026F44(
-            D_801D4ED0.x + 48, D_801D4ED0.y + 19, &D_801E31A0 + 36, 7);
-        func_80026F44(
-            D_801D4ED0.x + 48, D_801D4ED0.y + 31, &D_801E31A0 + 72, 7);
+        func_80026F44(D_801D4ED0.x + 0xA, D_801D4ED0.y + 6, D_801E2CFC[33], 7);
+        func_80026F44(D_801D4ED0.x + 48, D_801D4ED0.y + 19, D_801E2CFC[34], 7);
+        func_80026F44(D_801D4ED0.x + 48, D_801D4ED0.y + 31, D_801E2CFC[35], 7);
         func_8001E040(&D_801D4ED0);
         /* fallthrough */
     case 1:
@@ -143,7 +141,7 @@ int func_801D06B0(s32 arg0) {
                 } else {
                     func_80026F44(
                         0x32, var_s0 * 64 + 55 + menus.D_801E379C[1].unkF * 8,
-                        &D_801E2E1C, 6);
+                        D_801E2CFC[8], 6);
                     func_8001DE40(&sp38, &D_801DEEF4);
                     func_8001DE24(
                         &sp38, 0,
@@ -161,13 +159,13 @@ int func_801D06B0(s32 arg0) {
             } else {
                 func_80026A94(D_801E36BC[D_801E36B4], &rect);
             }
-            func_80026F44(10, 11, D_801E2D44, 7);
-            func_80026F44(206, 11, D_801E2D44 + 252, 6);
+            func_80026F44(10, 11, D_801E2CFC[2], 7);
+            func_80026F44(206, 11, D_801E2CFC[9], 6);
             func_80026F44(
-                func_80026B70(D_801E2D44 + 0xFC) + 208, 11,
+                func_80026B70(D_801E2CFC[9]) + 208, 11,
                 ((13 + menus.D_801E379C[1].unkB + menus.D_801E379C[1].unk2) *
                  36) +
-                    (D_801E2D44 - 72),
+                    D_801E2CFC[0],
                 7);
             func_8001DE0C(&sp38, 200, 5, 78, 24);
             func_8001E040(&sp38);
@@ -185,7 +183,7 @@ int func_801D06B0(s32 arg0) {
             var_s1 = 128;
             var_s0 = 0;
         }
-        func_80026F44(0xA, 0xB, D_801E2EAC, 7);
+        func_80026F44(10, 11, D_801E2CFC[12], 7);
         if (D_801E36A8 == 0) {
             func_800285AC(
                 122, 117, (D_801E36AC + 1) * 8, 8, var_s2, var_s1, var_s0);
@@ -199,8 +197,8 @@ int func_801D06B0(s32 arg0) {
         func_8001E040(&sp38);
         break;
     case 4:
-        temp_s1 = func_80026B70(&D_801E2DF8) + 0x10;
-        func_80026F44(190 - temp_s1 / 2, 115, &D_801E2DF8, 7);
+        temp_s1 = func_80026B70(D_801E2CFC[7]) + 0x10;
+        func_80026F44(190 - temp_s1 / 2, 115, D_801E2CFC[7], 7);
         func_8001DE0C(&sp38, 182 - temp_s1 / 2, 109, temp_s1, 24);
         func_8001E040(&sp38);
         break;
@@ -209,9 +207,9 @@ int func_801D06B0(s32 arg0) {
             func_8001EB2C(D_801D4EC8.x - 18,
                           D_801D4EC8.y + 6 + menus.D_801E379C[0].unkB * 0xC);
         }
-        func_80026F44(D_801D4EC8.x + 12, D_801D4EC8.y + 5, &D_801E2D68,
+        func_80026F44(D_801D4EC8.x + 12, D_801D4EC8.y + 5, D_801E2CFC[3],
                       -(D_801E8F38[0][0] != 0) & 7);
-        func_80026F44(D_801D4EC8.x + 12, D_801D4EC8.y + 0x11, &D_801E2D68 + 36,
+        func_80026F44(D_801D4EC8.x + 12, D_801D4EC8.y + 0x11, D_801E2CFC[4],
                       -(D_801E8F38[1][0] != 0) & 7);
         rect.x = 0;
         rect.y = 0;
@@ -219,13 +217,11 @@ int func_801D06B0(s32 arg0) {
         rect.h = 0x100;
         func_80026A34(0, 1, 0x7F, &rect);
         func_8001E040(&D_801D4EC8);
-        func_80026F44(10, 11, D_801E3320[0], 7);
-        temp_s2 = func_80026B70(D_801E3320[1]) + 0x10;
-        func_80026F44(190 - temp_s2 / 2, D_801D4EC8.h + 99, D_801E3320[1], 7);
-        func_80026F44(
-            228 - temp_s2 / 2, D_801D4EC8.h + 112, &D_801E2D68 + 0x45C, 7);
-        func_80026F44(
-            228 - temp_s2 / 2, D_801D4EC8.h + 124, &D_801E2D68 + 0x480, 7);
+        func_80026F44(10, 11, D_801E3260[4], 7);
+        temp_s2 = func_80026B70(D_801E3260[5]) + 0x10;
+        func_80026F44(190 - temp_s2 / 2, D_801D4EC8.h + 99, D_801E3260[5], 7);
+        func_80026F44(228 - temp_s2 / 2, D_801D4EC8.h + 112, D_801E2CFC[34], 7);
+        func_80026F44(228 - temp_s2 / 2, D_801D4EC8.h + 124, D_801E2CFC[35], 7);
         func_8001EB2C(200 - temp_s2 / 2,
                       115 + (menus.D_801E3808[0].unkB * 12) + D_801D4EC8.h);
         func_8001DE0C(
@@ -268,7 +264,7 @@ int func_801D06B0(s32 arg0) {
                 }
             } else {
                 func_801D0408(3);
-                func_8001F6C0(!D_801E3860 ? D_801E33B0 : D_801E3380, 7);
+                func_8001F6C0(!D_801E3860 ? D_801E33B0[0] : D_801E3260[6], 7);
             }
         } else {
             func_800264A8(&menus.D_801E379C[0]);
@@ -315,7 +311,7 @@ int func_801D06B0(s32 arg0) {
                 D_801E36AC++;
                 if (var_s0) {
                     D_801E3850 = 0;
-                    func_8001F6C0(&D_801E3530, 2);
+                    func_8001F6C0(D_801E33B0[8], 2);
                 }
                 if (D_801E36AC == 0xF) {
                     D_801E36AC = 0xE;
@@ -346,12 +342,12 @@ int func_801D06B0(s32 arg0) {
         }
         if (!func_801D2A34(var_v0_6)) {
             func_801D0408(0xD0);
-            func_8001F6C0(&D_801E30EC, 7);
+            func_8001F6C0(D_801E2CFC[28], 7);
             D_80062F3C |=
                 1 << (menus.D_801E379C[1].unkB + menus.D_801E379C[1].unk2);
         } else {
             func_801D0408(3);
-            func_8001F6C0(&D_801E3440, 7);
+            func_8001F6C0(D_801E33B0[3], 7);
         }
         break;
     case 6:
@@ -369,10 +365,10 @@ int func_801D06B0(s32 arg0) {
                 D_801E3850 = 0;
                 if (temp_v1 == 1) {
                     D_801E8F38[menus.D_801E379C[0].unkB][2] = 0;
-                    func_8001F6C0(&D_801E32C0, 7);
+                    func_8001F6C0(D_801E2CFC[41], 7);
                     func_801D0408(0xD0);
                 } else {
-                    func_8001F6C0(&D_801E32F0, 7);
+                    func_8001F6C0(D_801E3260[3], 7);
                     func_801D0408(3);
                 }
             }
@@ -405,21 +401,14 @@ int func_801D06B0(s32 arg0) {
     }
 }
 
-const char D_801D0050[] = "BASCUS-94163FF7-S15";
-const char D_801D0064[] = "BASCUS-94163FF7-S14";
-const char D_801D0078[] = "BASCUS-94163FF7-S13";
-const char D_801D008C[] = "BASCUS-94163FF7-S12";
-const char D_801D00A0[] = "BASCUS-94163FF7-S11";
-const char D_801D00B4[] = "BASCUS-94163FF7-S10";
-const char D_801D00C8[] = "BASCUS-94163FF7-S09";
-const char D_801D00DC[] = "BASCUS-94163FF7-S08";
-const char D_801D00F0[] = "BASCUS-94163FF7-S07";
-const char D_801D0104[] = "BASCUS-94163FF7-S06";
-const char D_801D0118[] = "BASCUS-94163FF7-S05";
-const char D_801D012C[] = "BASCUS-94163FF7-S04";
-const char D_801D0140[] = "BASCUS-94163FF7-S03";
-const char D_801D0154[] = "BASCUS-94163FF7-S02";
-const char D_801D0168[] = "BASCUS-94163FF7-S01";
+static const char* D_801E2C78[] = {
+    "BASCUS-94163FF7-S01", "BASCUS-94163FF7-S02", "BASCUS-94163FF7-S03",
+    "BASCUS-94163FF7-S04", "BASCUS-94163FF7-S05", "BASCUS-94163FF7-S06",
+    "BASCUS-94163FF7-S07", "BASCUS-94163FF7-S08", "BASCUS-94163FF7-S09",
+    "BASCUS-94163FF7-S10", "BASCUS-94163FF7-S11", "BASCUS-94163FF7-S12",
+    "BASCUS-94163FF7-S13", "BASCUS-94163FF7-S14", "BASCUS-94163FF7-S15",
+};
+static s32 D_801E2CB4 = 0;
 
 s32 func_801D1774(void) {
     s32 ret;
@@ -612,24 +601,16 @@ INCLUDE_ASM("asm/us/menu/nonmatchings/savemenu", func_801D224C);
 
 INCLUDE_ASM("asm/us/menu/nonmatchings/savemenu", func_801D2408);
 
-// clang-format off
-// most likely the memcard title in shift-jis format
-const s16 D_801D019C[] = {0x6582, 0x6582, 0x5682, 0x5E81, 0x7282, 0x6082, 0x7582, 0x6482, 0x5082, 0x5482, 0x5E81, 0x5082, 0x5082, 0x4681, 0x5082, 0x5082, 0, 0};
-const s16 D_801D01C0[] = {0x6582, 0x6582, 0x5682, 0x5E81, 0x7282, 0x6082, 0x7582, 0x6482, 0x5082, 0x5382, 0x5E81, 0x5082, 0x5082, 0x4681, 0x5082, 0x5082, 0, 0};
-const s16 D_801D01E4[] = {0x6582, 0x6582, 0x5682, 0x5E81, 0x7282, 0x6082, 0x7582, 0x6482, 0x5082, 0x5282, 0x5E81, 0x5082, 0x5082, 0x4681, 0x5082, 0x5082, 0, 0};
-const s16 D_801D0208[] = {0x6582, 0x6582, 0x5682, 0x5E81, 0x7282, 0x6082, 0x7582, 0x6482, 0x5082, 0x5182, 0x5E81, 0x5082, 0x5082, 0x4681, 0x5082, 0x5082, 0, 0};
-const s16 D_801D022C[] = {0x6582, 0x6582, 0x5682, 0x5E81, 0x7282, 0x6082, 0x7582, 0x6482, 0x5082, 0x5082, 0x5E81, 0x5082, 0x5082, 0x4681, 0x5082, 0x5082, 0, 0};
-const s16 D_801D0250[] = {0x6582, 0x6582, 0x5682, 0x5E81, 0x7282, 0x6082, 0x7582, 0x6482, 0x5082, 0x4F82, 0x5E81, 0x5082, 0x5082, 0x4681, 0x5082, 0x5082, 0, 0};
-const s16 D_801D0274[] = {0x6582, 0x6582, 0x5682, 0x5E81, 0x7282, 0x6082, 0x7582, 0x6482, 0x4F82, 0x5882, 0x5E81, 0x4F82, 0x4F82, 0x4681, 0x4F82, 0x4F82, 0, 0};
-const s16 D_801D0298[] = {0x6582, 0x6582, 0x5682, 0x5E81, 0x7282, 0x6082, 0x7582, 0x6482, 0x4F82, 0x5782, 0x5E81, 0x4F82, 0x4F82, 0x4681, 0x4F82, 0x4F82, 0, 0};
-const s16 D_801D02BC[] = {0x6582, 0x6582, 0x5682, 0x5E81, 0x7282, 0x6082, 0x7582, 0x6482, 0x4F82, 0x5682, 0x5E81, 0x4F82, 0x4F82, 0x4681, 0x4F82, 0x4F82, 0, 0};
-const s16 D_801D02E0[] = {0x6582, 0x6582, 0x5682, 0x5E81, 0x7282, 0x6082, 0x7582, 0x6482, 0x4F82, 0x5582, 0x5E81, 0x4F82, 0x4F82, 0x4681, 0x4F82, 0x4F82, 0, 0};
-const s16 D_801D0304[] = {0x6582, 0x6582, 0x5682, 0x5E81, 0x7282, 0x6082, 0x7582, 0x6482, 0x4F82, 0x5482, 0x5E81, 0x4F82, 0x4F82, 0x4681, 0x4F82, 0x4F82, 0, 0};
-const s16 D_801D0328[] = {0x6582, 0x6582, 0x5682, 0x5E81, 0x7282, 0x6082, 0x7582, 0x6482, 0x4F82, 0x5382, 0x5E81, 0x4F82, 0x4F82, 0x4681, 0x4F82, 0x4F82, 0, 0};
-const s16 D_801D034C[] = {0x6582, 0x6582, 0x5682, 0x5E81, 0x7282, 0x6082, 0x7582, 0x6482, 0x4F82, 0x5282, 0x5E81, 0x4F82, 0x4F82, 0x4681, 0x4F82, 0x4F82, 0, 0};
-const s16 D_801D0370[] = {0x6582, 0x6582, 0x5682, 0x5E81, 0x7282, 0x6082, 0x7582, 0x6482, 0x4F82, 0x5182, 0x5E81, 0x4F82, 0x4F82, 0x4681, 0x4F82, 0x4F82, 0, 0};
-const s16 D_801D0394[] = {0x6582, 0x6582, 0x5682, 0x5E81, 0x7282, 0x6082, 0x7582, 0x6482, 0x4F82, 0x5082, 0x5E81, 0x4F82, 0x4F82, 0x4681, 0x4F82, 0x4F82, 0, 0};
-// clang-format on
+static const char* D_801E2CB8[] = {
+    "ＦＦ７／ＳＡＶＥ０１／００：００", "ＦＦ７／ＳＡＶＥ０２／００：００",
+    "ＦＦ７／ＳＡＶＥ０３／００：００", "ＦＦ７／ＳＡＶＥ０４／００：００",
+    "ＦＦ７／ＳＡＶＥ０５／００：００", "ＦＦ７／ＳＡＶＥ０６／００：００",
+    "ＦＦ７／ＳＡＶＥ０７／００：００", "ＦＦ７／ＳＡＶＥ０８／００：００",
+    "ＦＦ７／ＳＡＶＥ０９／００：００", "ＦＦ７／ＳＡＶＥ１０／１１：１１",
+    "ＦＦ７／ＳＡＶＥ１１／１１：１１", "ＦＦ７／ＳＡＶＥ１２／１１：１１",
+    "ＦＦ７／ＳＡＶＥ１３／１１：１１", "ＦＦ７／ＳＡＶＥ１４／１１：１１",
+    "ＦＦ７／ＳＡＶＥ１５／１１：１１",
+};
 
 s16 func_801D2A34(s32 save_id) {
     char sp10[0x40];
@@ -657,6 +638,8 @@ void func_801D2B58(u16 arg0) {
     func_8002DA7C();
 }
 
+static s32 D_801E2CF4 = 0xFF;
+u32 D_801E2CF8 = 0; // used by title.c
 s32 func_801D2B98(s32 arg0) {
     RECT rect;
 
@@ -705,6 +688,73 @@ void func_801D2D10(s32 arg0) {
     }
     func_8002DA7C();
 }
+
+unsigned char D_801E2CFC[][0x24] = {
+    _S("Load"),
+    _S("Select a slot."),
+    _S("Select a file."),
+    _S("SLOT 1"),
+    _S("SLOT 2"),
+    _S("Are you sure?"),
+    _S("Loading. Do not remove Memory card."),
+    _S("Saving. Do not remove Memory card."),
+    _S("EMPTY"),
+    _S("FILE"),
+    _S("Continue?"),
+    _S("/15"),
+    _S("Checking Memory card."),
+    _S("01"),
+    _S("02"),
+    _S("03"),
+    _S("04"),
+    _S("05"),
+    _S("06"),
+    _S("07"),
+    _S("08"),
+    _S("09"),
+    _S("10"),
+    _S("11"),
+    _S("12"),
+    _S("13"),
+    _S("14"),
+    _S("15"),
+    _S("Saved."),
+    _S("Could not save."),
+    _S("Could not load."),
+    _S("File is ruined."),
+    _S("NEW GAME"),
+    _S("Are you sure you want to save?"),
+    _S("Yes"),
+    _S("No"),
+    _S(""),
+    _S("Completed."),
+};
+static u32 _padding[] = {0, 0, 0};
+unsigned char D_801E3260[][0x30] = {
+    _S(""),
+    _S(""),
+    _S("Formatted."),
+    _S("Could not format."),
+    _S("Not formatted."),
+    _S("Want to format it now?"),
+    _S("No Memory card."),
+};
+unsigned char D_801E33B0[][0x30] = {
+    _S("No Memory card."),
+    _S("This Memory card is damaged and cannot be used."),
+    _S("Please insert another Memory card."),
+    _S("No enough memory left on Memory card."),
+    _S("Use another Memory card,"),
+    _S("or erase 1 block of saved data."),
+    _S(""),
+    _S(""),
+    _S("Couldn't read it."),
+    _S("Still want to begin the game?"),
+    _S("‘’"),
+    _S("‘’"),
+    _S("‘’"),
+    _S(""),
+};
 
 INCLUDE_ASM("asm/us/menu/nonmatchings/savemenu", func_801D2DA8);
 
