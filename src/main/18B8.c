@@ -80,6 +80,7 @@ extern s32 D_80048D20;
 extern Yamada D_80048D84[];
 extern s32 D_80048DD4[];
 extern u8 D_80049208[12]; // menu color RGB-quadruplet
+extern s32 D_80049224[8];
 extern u8 D_80063690[];
 extern u16 D_80069490[];
 extern u16 D_800707BC;
@@ -1111,7 +1112,34 @@ void func_8001EB2C(s16 x, s16 y) {
 
 INCLUDE_ASM("asm/us/main/nonmatchings/18B8", func_8001EC70);
 
-INCLUDE_ASM("asm/us/main/nonmatchings/18B8", func_8001EF84);
+void func_8001EF84(s32 x, s32 y, s32 n, s32 len) {
+    RECT rect;
+    s32 i;
+    s32 uv;
+
+    for (i = 0; i < 8; i++) {
+        uv = n / D_80049224[i];
+        setSprt(D_80062F24.sprt);
+        SetShadeTex(D_80062F24.sprt, 1);
+        D_80062F24.sprt->x0 = x;
+        D_80062F24.sprt->y0 = y;
+        D_80062F24.sprt->u0 = (uv % 5) * 16 - 80;
+        D_80062F24.sprt->v0 = uv >= 5 ? 104 : 80;
+        D_80062F24.sprt->w = 16;
+        D_80062F24.sprt->h = 21;
+        D_80062F24.sprt->clut = GetClut(0x100, 0x1EC);
+        if (len >= 8 - i) {
+            x += 16;
+            AddPrim(D_80062FC4, D_80062F24.sprt++);
+        }
+        n %= D_80049224[i];
+    }
+    rect.x = 0;
+    rect.y = 0;
+    rect.w = 255;
+    rect.h = 255;
+    func_80026A34(0, 1, (u16)GetTPage(0, 1, 0x3C0, 0x100), &rect);
+}
 
 INCLUDE_ASM("asm/us/main/nonmatchings/18B8", func_8001F1BC);
 
