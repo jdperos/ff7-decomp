@@ -322,7 +322,7 @@ void func_8001171C(void) {
     D_80095DD4 = 0;
     VSyncCallback(&func_8001155C);
     func_80043BA8(0);
-    func_80043D3C(0);
+    SetDispMask(0);
     func_80039EDC();
 }
 
@@ -386,7 +386,7 @@ INCLUDE_ASM("asm/us/main/nonmatchings/18B8", func_80013C9C);
 void func_800140A4(void) {
     D_8019DAA0++;
     if (!(D_8019DAA0 & 1)) {
-        func_8004433C(D_8019D5E8);
+        DrawOTag(D_8019D5E8);
         func_80013C9C();
     }
 }
@@ -492,7 +492,7 @@ void func_80014934(void) {
 
 INCLUDE_ASM("asm/us/main/nonmatchings/18B8", func_80014980);
 
-void func_800149E0(void) { func_80043DD8(0); }
+void func_800149E0(void) { DrawSync(0); }
 
 void func_80014A00(s32* dst, s32* src, s32 len) {
     int i;
@@ -1197,7 +1197,36 @@ INCLUDE_ASM("asm/us/main/nonmatchings/18B8", func_800206E4);
 
 INCLUDE_ASM("asm/us/main/nonmatchings/18B8", func_80020B68);
 
-INCLUDE_ASM("asm/us/main/nonmatchings/18B8", func_80021044);
+void func_80021044(DRAWENV* draw_env, DISPENV* disp_env) {
+    VSync(0);
+    SetDefDrawEnv(draw_env, 0, 0, 0x180, 0x1D8);
+    draw_env[0].dfe = 1;
+    draw_env[0].isbg = 1;
+    PutDrawEnv(draw_env);
+    VSync(0);
+    SetDefDrawEnv(draw_env, 0, 8, 0x180, 0xE0);
+    SetDefDrawEnv(&draw_env[1], 0, 0xF0, 0x180, 0xE0);
+    SetDefDispEnv(&disp_env[0], 0, 0xE8, 0x16C, 0xF0);
+    SetDefDispEnv(&disp_env[1], 0, 0, 0x16C, 0xF0);
+    draw_env[1].isbg = 1;
+    draw_env[0].isbg = 1;
+    draw_env[1].dfe = 1;
+    draw_env[0].dfe = 1;
+    draw_env[1].dtd = 1;
+    draw_env[0].dtd = 1;
+    draw_env[0].r0 = 0;
+    draw_env[0].g0 = 0;
+    draw_env[0].b0 = 0;
+    draw_env[1].r0 = 0;
+    draw_env[1].g0 = 0;
+    draw_env[1].b0 = 0;
+    draw_env[0].tpage = draw_env[1].tpage =
+        func_80043CC0() != 1 && func_80043CC0() != 2 ? 0x3F : 0xAF;
+    VSync(0);
+    PutDispEnv(disp_env);
+    PutDrawEnv(draw_env);
+    SetDispMask(1);
+}
 
 INCLUDE_ASM("asm/us/main/nonmatchings/18B8", func_800211B8);
 

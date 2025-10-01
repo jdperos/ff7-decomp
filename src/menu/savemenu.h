@@ -49,22 +49,20 @@ extern s32 D_801E3698;
 extern s32 D_801E36B0;
 extern s32 D_801E36B8;
 extern s32 D_801E36B4;
-extern s8 D_801E36BC[2][0x5C];
-extern s8 D_801E3774[2][0x14];
+extern DRAWENV D_801E36BC[2];
+extern DISPENV D_801E3774[2];
 extern Menus menus;
-extern s32* D_801E3854;
-extern s32 D_801E3858[2];
+extern u_long* D_801E3854; // otag pointer
+extern u_long* D_801E3858[2][1];
 extern s32 D_801E3864[][0x54 / 4];
 extern s32 D_801E3D50;
 extern s32 D_801E3D54;
-extern s32 D_801E3D58; // backbuffer id?
-extern u8* D_801E3D5C; // maybe OT?
-extern u8 D_801E3D60[][0x10];
+extern s32 D_801E3D58;     // backbuffer id?
+extern u_long* D_801E3D5C; // otag pointer
+extern u_long* D_801E3D60[2][4];
 extern Unk80026448 D_801E3DFE[2];
-extern u8 D_801E3E34[][0x5C]; // list of primitives?
-extern s8 D_801E3E90[];
-extern u8 D_801E3EEC[][20];
-extern s32 D_801E3F00;
+extern DRAWENV D_801E3E34[2];
+extern DISPENV D_801E3EEC[2];
 extern s32 D_801E3F2C[];
 extern s32 D_801E4538[];
 extern u8 D_801E8F38[2][3];

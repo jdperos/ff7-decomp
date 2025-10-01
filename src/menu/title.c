@@ -8,7 +8,7 @@ void func_801D39C4(void) {
     D_801E2CF8 = 7;
     func_8001DEF0(D_801E368C);
     func_80025D14(D_801D4EDC, 0x380, 0, 0, 0x1E0);
-    func_80043DD8(0);
+    DrawSync(0);
     func_80026448(D_801E3DFE, 0, 1, 1, 2, 0, 0, 1, 2, 0, 0, 0, 1, 0);
     func_80025CD4(D_801E3F2C);
     func_80025B8C(D_801E8F44);
@@ -91,7 +91,7 @@ s32 func_801D3AB0(s32 arg0) {
             rect.w = 0x16C;
             rect.h = 0xC3;
             rect.x = 0;
-            func_80026A94(D_801E3E34[D_801E3D58], &rect);
+            func_80026A94(&D_801E3E34[D_801E3D58], &rect);
             func_80026F44(10, 11, D_801E2CFC[2], 7);
             func_80026F44(0xCE, 11, D_801E2CFC[9], 6);
             func_80026F44(
@@ -390,8 +390,8 @@ void func_801D4C38(void) {
     func_80025BD0(D_801E8F44);
     func_80025C54(D_801E4538);
     func_801D1BA4();
-    func_800444AC(D_801E3EEC);
-    func_800443B0(D_801E3E34);
+    PutDispEnv(D_801E3EEC);
+    PutDrawEnv(D_801E3E34);
 }
 
 // title screen loop
@@ -406,25 +406,25 @@ s32 func_801D4CC0(void) {
     for (i = 0;; i++) {
         func_8001CB48();
         func_800269C0(D_80077F64[D_801E3D58]);
-        D_801E3D5C = D_801E3D60[D_801E3D58];
-        func_8004418C(D_801E3D5C, 1);
+        D_801E3D5C = (u_long*)D_801E3D60[D_801E3D58];
+        ClearOTag(D_801E3D5C, 1);
         func_80026A00(D_801E3D5C);
         func_8001F710();
         ret = func_801D3AB0(i);
         if (D_801E3D54 == -1) {
             break;
         }
-        func_80043DD8(0);
+        DrawSync(0);
         VSync(0);
-        func_800444AC(D_801E3EEC[D_801E3D58]);
-        func_800443B0(D_801E3E34[D_801E3D58]);
-        func_8004433C(D_801E3D5C);
+        PutDispEnv(&D_801E3EEC[D_801E3D58]);
+        PutDrawEnv(&D_801E3E34[D_801E3D58]);
+        DrawOTag(D_801E3D5C);
         D_801E3D58 ^= 1; // flip back buffer ID?
     }
     func_801D4C38();
     VSync(0);
-    func_800444AC(&D_801E3F00);
-    func_800443B0(D_801E3E90);
+    PutDispEnv(&D_801E3EEC[1]);
+    PutDrawEnv(&D_801E3E34[1]);
     for (i = 0; i < 3; i++) {
         if (D_8009CBDC[i] != 0xFF) {
             func_80020058(i);

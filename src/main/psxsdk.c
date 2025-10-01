@@ -852,7 +852,7 @@ INCLUDE_ASM("asm/us/main/nonmatchings/psxsdk", LoadTPage);
 
 INCLUDE_ASM("asm/us/main/nonmatchings/psxsdk", LoadClut);
 
-INCLUDE_ASM("asm/us/main/nonmatchings/psxsdk", func_80043814);
+INCLUDE_ASM("asm/us/main/nonmatchings/psxsdk", SetDefDrawEnv);
 
 INCLUDE_ASM("asm/us/main/nonmatchings/psxsdk", SetDefDispEnv);
 
@@ -874,9 +874,9 @@ INCLUDE_ASM("asm/us/main/nonmatchings/psxsdk", func_80043CD0);
 
 INCLUDE_ASM("asm/us/main/nonmatchings/psxsdk", func_80043CE0);
 
-INCLUDE_ASM("asm/us/main/nonmatchings/psxsdk", func_80043D3C);
+INCLUDE_ASM("asm/us/main/nonmatchings/psxsdk", SetDispMask);
 
-INCLUDE_ASM("asm/us/main/nonmatchings/psxsdk", func_80043DD8);
+INCLUDE_ASM("asm/us/main/nonmatchings/psxsdk", DrawSync);
 
 INCLUDE_ASM("asm/us/main/nonmatchings/psxsdk", func_80043E44);
 
@@ -886,23 +886,23 @@ INCLUDE_ASM("asm/us/main/nonmatchings/psxsdk", LoadImage);
 
 INCLUDE_ASM("asm/us/main/nonmatchings/psxsdk", StoreImage);
 
-INCLUDE_ASM("asm/us/main/nonmatchings/psxsdk", func_800440C8);
+INCLUDE_ASM("asm/us/main/nonmatchings/psxsdk", MoveImage);
 
-INCLUDE_ASM("asm/us/main/nonmatchings/psxsdk", func_8004418C);
+INCLUDE_ASM("asm/us/main/nonmatchings/psxsdk", ClearOTag);
 
-INCLUDE_ASM("asm/us/main/nonmatchings/psxsdk", func_80044244);
+INCLUDE_ASM("asm/us/main/nonmatchings/psxsdk", ClearOTagR);
 
 INCLUDE_ASM("asm/us/main/nonmatchings/psxsdk", DrawPrim);
 
-INCLUDE_ASM("asm/us/main/nonmatchings/psxsdk", func_8004433C);
+INCLUDE_ASM("asm/us/main/nonmatchings/psxsdk", DrawOTag);
 
-INCLUDE_ASM("asm/us/main/nonmatchings/psxsdk", func_800443B0);
+INCLUDE_ASM("asm/us/main/nonmatchings/psxsdk", PutDrawEnv);
 
-INCLUDE_ASM("asm/us/main/nonmatchings/psxsdk", func_80044474);
+INCLUDE_ASM("asm/us/main/nonmatchings/psxsdk", GetDrawEnv);
 
-INCLUDE_ASM("asm/us/main/nonmatchings/psxsdk", func_800444AC);
+INCLUDE_ASM("asm/us/main/nonmatchings/psxsdk", PutDispEnv);
 
-INCLUDE_ASM("asm/us/main/nonmatchings/psxsdk", func_800448D0);
+INCLUDE_ASM("asm/us/main/nonmatchings/psxsdk", GetDispEnv);
 
 INCLUDE_ASM("asm/us/main/nonmatchings/psxsdk", GetODE);
 

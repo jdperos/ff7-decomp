@@ -155,9 +155,9 @@ int func_801D06B0(s32 arg0) {
             rect.x = 0;
             rect.h = 195;
             if (D_801E36B8 == 0) {
-                func_80026A94(D_800706A4[D_80062F58], &rect);
+                func_80026A94(&D_800706A4[D_80062F58], &rect);
             } else {
-                func_80026A94(D_801E36BC[D_801E36B4], &rect);
+                func_80026A94(&D_801E36BC[D_801E36B4], &rect);
             }
             func_80026F44(10, 11, D_801E2CFC[2], 7);
             func_80026F44(206, 11, D_801E2CFC[9], 6);
@@ -422,29 +422,29 @@ s32 func_801D1774(void) {
     while (1) {
         func_8001CB48();
         func_800269C0(D_80077F64[D_801E36B4]);
-        D_801E3854 = &D_801E3858[D_801E36B4];
-        func_8004418C(D_801E3854, 1);
+        D_801E3854 = (u_long*)D_801E3858[D_801E36B4];
+        ClearOTag(D_801E3854, 1);
         func_80026A00(D_801E3854);
         func_8001F710();
         ret = func_801D06B0(i);
         if (D_801E36B0 == -1) {
             break;
         }
-        func_80043DD8(0);
+        DrawSync(0);
         VSync(0);
-        func_800444AC(D_801E3774[D_801E36B4]);
-        func_800443B0(D_801E36BC[D_801E36B4]);
-        func_8004433C(D_801E3854);
+        PutDispEnv(&D_801E3774[D_801E36B4]);
+        PutDrawEnv(&D_801E36BC[D_801E36B4]);
+        DrawOTag(D_801E3854);
         D_801E36B4 ^= 1;
         i++;
     }
     func_801D0670();
     VSync(0);
-    func_800444AC(D_801E3774[0]);
-    func_800443B0(D_801E36BC[0]);
+    PutDispEnv(&D_801E3774[0]);
+    PutDrawEnv(&D_801E36BC[0]);
     VSync(0);
-    func_800444AC(D_801E3774[1]);
-    func_800443B0(D_801E36BC[1]);
+    PutDispEnv(&D_801E3774[1]);
+    PutDrawEnv(&D_801E36BC[1]);
     return ret;
 }
 
