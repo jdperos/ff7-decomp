@@ -1,6 +1,5 @@
 main = 0x80011C1C;
 func_80026A0C = 0x80026A0C;
-GsGetWorkBase = 0x80025B7C;
 DS_init = 0x80033B70;
 DS_reset_members = 0x80033C08;
 DS_close = 0x80033CE0;
@@ -278,7 +277,7 @@ LoadTPage = 0x800436C0;
 LoadClut = 0x800437AC;
 SetDefDrawEnv = 0x80043814;
 SetDefDispEnv = 0x800438D4;
-GsGetWorkBase_0 = 0x80043928;
+GsGetWorkBase = 0x80043928;
 SetDispMask = 0x80043D3C;
 DrawSync = 0x80043DD8;
 ClearImage = 0x80043F6C;

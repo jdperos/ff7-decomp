@@ -60,6 +60,7 @@ extern s32 D_8009A004;
 extern s32 D_8009A008;
 extern s32 D_8009A024[8];
 extern s32 D_8009C6E4[0x54 / 4]; // memcard slot header?
+extern s32 D_8009D260;
 extern u16 D_8009D7BE;
 extern u8 D_8009CBDC[];
 extern u8 D_8009C778[];

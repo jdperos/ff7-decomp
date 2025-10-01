@@ -66,6 +66,11 @@ typedef struct {
     u16 unk6;
 } Unk8001DE0C;
 
+typedef struct {
+    s32 sector_off;
+    s32 length;
+} PortraitEntry;
+
 extern s32 D_80010100[];
 extern s32 D_80048CFC;
 extern s32 D_80048D00;
@@ -79,8 +84,11 @@ extern s32 D_80048D1C;
 extern s32 D_80048D20;
 extern Yamada D_80048D84[];
 extern s32 D_80048DD4[];
+extern PortraitEntry D_80048FE8[15];
 extern u8 D_80049208[12]; // menu color RGB-quadruplet
 extern s32 D_80049224[8];
+extern u8 D_80049520[];
+extern u8 D_80049528[];
 extern u8 D_80063690[];
 extern u16 D_80069490[];
 extern u16 D_800707BC;
@@ -93,6 +101,7 @@ extern s32 D_80071C24[]; // accessory data?
 extern s32 D_80071E44[]; // armor data?
 extern s32 D_800722C8;   // LBA dst for func_80014540
 extern u8 D_800722DC[];
+extern u8 D_800730DC[][0x14];
 extern s16 D_80095DD4;
 extern s32 D_80095DD8; // LBA len for func_80014540
 extern s16 D_800965E8;
@@ -156,14 +165,14 @@ s32 D_80062DD0 = 0x00000000;
 s32 D_80062DD4 = 0x00000000;
 s16 D_80062DD8 = 0x0000;
 s8 D_80062DDA = 0x00;
-s8 D_80062DDB = 0x00;
-s8 D_80062DDC = 0x02;
-s8 D_80062DDD = 0x00;
-s8 D_80062DDE = 0x00;
-s8 D_80062DDF = 0x00;
+u8 D_80062DDB = 0x00;
+u8 D_80062DDC = 0x02;
+static s8 _D_80062DDD = 0x00;
+static s8 _D_80062DDE = 0x00;
+static s8 _D_80062DDF = 0x00;
 s32 D_80062DE0 = 0x00000000;
-s8 D_80062DE4 = 0x00;
-s8 D_80062DE5 = 0x00;
+u8 D_80062DE4 = 0x00;
+u8 D_80062DE5 = 0x00;
 s16 D_80062DE6 = 0x00B4;
 s16 D_80062DE8 = 0x0068;
 s16 D_80062DEA = 0x0000;
@@ -172,9 +181,9 @@ s32 D_80062DF0 = 0x00000084;
 s32 D_80062DF4 = 0xFFFFFFFF;
 s32 D_80062DF8 = 0x00000001;
 s8 D_80062DFC = 0x40;
-s8 D_80062DFD = 0x00;
-s8 D_80062DFE = 0x00;
-s8 D_80062DFF = 0x00;
+static s8 _D_80062DFD = 0x00;
+static s8 _D_80062DFE = 0x00;
+static s8 _D_80062DFF = 0x00;
 s32 D_80062E00 = 0x00000000;
 s32 D_80062E04 = 0x00000000;
 s16 D_80062E08 = 0x0000;
@@ -197,52 +206,52 @@ s32 D_80062E44 = 0x00000000;
 s32 D_80062E48 = 0x00000000;
 s32 D_80062E4C = 0x00000000;
 s8 D_80062E50 = 0x00;
-s8 D_80062E51 = 0x00;
-s8 D_80062E52 = 0x00;
-s8 D_80062E53 = 0x00;
+static s8 _D_80062E51 = 0x00;
+static s8 _D_80062E52 = 0x00;
+static s8 _D_80062E53 = 0x00;
 s8 D_80062E54 = 0x00;
-s8 D_80062E55 = 0x00;
-s8 D_80062E56 = 0x00;
-s8 D_80062E57 = 0x00;
+static s8 _D_80062E55 = 0x00;
+static s8 _D_80062E56 = 0x00;
+static s8 _D_80062E57 = 0x00;
 s8 D_80062E58 = 0x00;
-s8 D_80062E59 = 0x00;
-s8 D_80062E5A = 0x00;
-s8 D_80062E5B = 0x00;
+static s8 _D_80062E59 = 0x00;
+static s8 _D_80062E5A = 0x00;
+static s8 _D_80062E5B = 0x00;
 s8 D_80062E5C = 0x00;
-s8 D_80062E5D = 0x00;
-s8 D_80062E5E = 0x00;
-s8 D_80062E5F = 0x00;
+static s8 _D_80062E5D = 0x00;
+static s8 _D_80062E5E = 0x00;
+static s8 _D_80062E5F = 0x00;
 s32 D_80062E60 = 0;
 s8 D_80062E64 = 0x00;
-s8 D_80062E65 = 0x00;
-s8 D_80062E66 = 0x00;
-s8 D_80062E67 = 0x00;
+static s8 _D_80062E65 = 0x00;
+static s8 _D_80062E66 = 0x00;
+static s8 _D_80062E67 = 0x00;
 s8 D_80062E68 = 0x00;
-s8 D_80062E69 = 0x00;
-s8 D_80062E6A = 0x00;
-s8 D_80062E6B = 0x00;
+static s8 _D_80062E69 = 0x00;
+static s8 _D_80062E6A = 0x00;
+static s8 _D_80062E6B = 0x00;
 s32 D_80062E6C = 0x00000000;
 s16 D_80062E70 = 0x0000;
 s16 D_80062E72 = 0x0000;
 s16 D_80062E74 = 0x0000;
 s16 D_80062E76 = 0x0000;
 s8 D_80062E78 = 0x00;
-s8 D_80062E79 = 0x00;
-s8 D_80062E7A = 0x00;
-s8 D_80062E7B = 0x00;
+static s8 _D_80062E79 = 0x00;
+static s8 _D_80062E7A = 0x00;
+static s8 _D_80062E7B = 0x00;
 s32 D_80062E7C = 0x00000000;
 s32 D_80062E80 = 0x00000000;
 s32 D_80062E84 = 0x00000000;
 s16 D_80062E88 = 0x0000;
 s16 D_80062E8A = 0x0000;
 s8 D_80062E8C = 0x00;
-s8 D_80062E8D = 0x00;
-s8 D_80062E8E = 0x00;
-s8 D_80062E8F = 0x00;
+static s8 _D_80062E8D = 0x00;
+static s8 _D_80062E8E = 0x00;
+static s8 _D_80062E8F = 0x00;
 s8 D_80062E90 = 0x00;
-s8 D_80062E91 = 0x00;
-s8 D_80062E92 = 0x00;
-s8 D_80062E93 = 0x00;
+static s8 _D_80062E91 = 0x00;
+static s8 _D_80062E92 = 0x00;
+static s8 _D_80062E93 = 0x00;
 s32 D_80062E94 = 0x00000000;
 s32 D_80062E98 = 0x00000000;
 s32 D_80062E9C = 0x00000000;
@@ -255,10 +264,18 @@ s16 D_80062EAE = 0x0000;
 s16 D_80062EB0 = 0x0000;
 s16 D_80062EB2 = 0x0000;
 s8 D_80062EB4 = 0x00;
-s8 D_80062EB5 = 0x00;
-s8 D_80062EB6 = 0x00;
-s8 D_80062EB7 = 0x00;
+static s8 _D_80062EB5 = 0x00;
+static s8 _D_80062EB6 = 0x00;
+static s8 _D_80062EB7 = 0x00;
 s32 D_80062EB8 = 0;
+s8 D_80062EBC = 0;
+static s8 _D_80062EBD = 0;
+static s8 _D_80062EBE = 0;
+static s8 _D_80062EBF = 0;
+s8 D_80062EC0 = 0;
+static s8 _D_80062EC1 = 0;
+static s8 _D_80062EC2 = 0;
+static s8 _D_80062EC3 = 0;
 
 void func_8001155C(void);
 void func_80014A00(s32* dst, s32* src, s32 len);
@@ -1392,7 +1409,7 @@ INCLUDE_ASM("asm/us/main/nonmatchings/18B8", func_80025380);
 
 INCLUDE_ASM("asm/us/main/nonmatchings/18B8", func_8002542C);
 
-INCLUDE_ASM("asm/us/main/nonmatchings/18B8", func_800254D8);
+void func_800254D8() { D_80062EBC = 0; }
 
 INCLUDE_ASM("asm/us/main/nonmatchings/18B8", func_800254E4);
 
@@ -1430,29 +1447,116 @@ INCLUDE_ASM("asm/us/main/nonmatchings/18B8", func_80025B10);
 
 INCLUDE_ASM("asm/us/main/nonmatchings/18B8", func_80025B48);
 
-INCLUDE_ASM("asm/us/main/nonmatchings/18B8", GsGetWorkBase);
+s32 func_80025B7C(void) { return D_8009D260; }
 
-INCLUDE_ASM("asm/us/main/nonmatchings/18B8", func_80025B8C);
+void func_80025B8C(u_long* image) {
+    RECT rect;
+    rect.x = 0x340;
+    rect.y = 0x184;
+    rect.w = 0x30;
+    rect.h = 0x78;
+    StoreImage(&rect, image);
+}
 
-INCLUDE_ASM("asm/us/main/nonmatchings/18B8", func_80025BD0);
+void func_80025BD0(u_long* image) {
+    RECT rect;
+    rect.x = 0x340;
+    rect.y = 0x184;
+    rect.w = 0x30;
+    rect.h = 0x78;
+    LoadImage(&rect, image);
+}
 
-INCLUDE_ASM("asm/us/main/nonmatchings/18B8", func_80025C14);
+void func_80025C14(u_long* image) {
+    RECT rect;
+    rect.x = 0x180;
+    rect.y = 0;
+    rect.w = 0x100;
+    rect.h = 9;
+    StoreImage(&rect, image);
+}
 
-INCLUDE_ASM("asm/us/main/nonmatchings/18B8", func_80025C54);
+void func_80025C54(u_long* image) {
+    RECT rect;
+    rect.x = 0x180;
+    rect.y = 0;
+    rect.w = 0x100;
+    rect.h = 9;
+    LoadImage(&rect, image);
+}
 
-INCLUDE_ASM("asm/us/main/nonmatchings/18B8", func_80025C94);
+void func_80025C94(u_long* image) {
+    RECT rect;
+    rect.x = 0x100;
+    rect.y = 0x1ED;
+    rect.w = 0x100;
+    rect.h = 3;
+    LoadImage(&rect, image);
+}
 
-INCLUDE_ASM("asm/us/main/nonmatchings/18B8", func_80025CD4);
+void func_80025CD4(u_long* image) {
+    RECT rect;
+    rect.x = 0x100;
+    rect.y = 0x1ED;
+    rect.w = 0x100;
+    rect.h = 3;
+    StoreImage(&rect, image);
+}
 
-INCLUDE_ASM("asm/us/main/nonmatchings/18B8", func_80025D14);
+void func_80025D14(u_long* addr, s32 px, s32 py, s32 cx, s32 cy) {
+    TIM_IMAGE tim;
+    OpenTIM(addr);
+    while (ReadTIM(&tim)) {
+        if (tim.caddr) {
+            tim.crect->x = cx;
+            tim.crect->y = cy;
+            LoadImage(tim.crect, tim.caddr);
+            DrawSync(0);
+        }
+        if (tim.paddr) {
+            tim.prect->x = px;
+            tim.prect->y = py;
+            LoadImage(tim.prect, tim.paddr);
+            DrawSync(0);
+        }
+    }
+}
 
-INCLUDE_ASM("asm/us/main/nonmatchings/18B8", func_80025DF8);
+// this function seems to be responsible of loading the characters' portrait
+void func_80025DF8(void) {
+    u8 dummy[8];
+    u8 buf[0x1000];
+    u_long* dst;
+    s32 i;
+    s32* sector_off;
+    s32* length;
+    s32 cx, cy;
+
+    i = 0;
+    dst = (u_long*)buf;
+    sector_off = &D_80048FE8->sector_off;
+    length = &D_80048FE8->length;
+    for (; i < 9; i++) {
+        func_80033F40(sector_off[i * 2], length[i * 2], dst, 0);
+        cx = 0x340 + (i / 5) * 0x18;
+        cy = 0x100 + (i % 5) * 0x30;
+        func_80025D14(dst, cx, cy, 0x180, i);
+        DrawSync(0);
+    }
+}
 
 INCLUDE_ASM("asm/us/main/nonmatchings/18B8", func_80025ED4);
 
 void func_80026034(void) {}
 
+#ifndef NON_MATCHINGS
 INCLUDE_ASM("asm/us/main/nonmatchings/18B8", func_8002603C);
+#else
+// --aspsx-version=2.21
+u8 func_8002603C(u8 arg0) {
+    return D_80049520[D_80049528[D_800730DC[arg0][1] & 0xF]];
+}
+#endif
 
 INCLUDE_ASM("asm/us/main/nonmatchings/18B8", func_80026090);
 

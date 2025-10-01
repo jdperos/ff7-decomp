@@ -858,7 +858,7 @@ INCLUDE_ASM("asm/us/main/nonmatchings/psxsdk", SetDefDispEnv);
 
 INCLUDE_ASM("asm/us/main/nonmatchings/psxsdk", func_80043910);
 
-INCLUDE_ASM("asm/us/main/nonmatchings/psxsdk", GsGetWorkBase_0);
+INCLUDE_ASM("asm/us/main/nonmatchings/psxsdk", GsGetWorkBase);
 
 INCLUDE_ASM("asm/us/main/nonmatchings/psxsdk", func_80043938);
 
