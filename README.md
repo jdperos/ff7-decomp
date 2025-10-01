@@ -1,4 +1,14 @@
-# Final Fantasy VII decomp (PSX)
+# Final Fantasy VII decomp (PS1)
+
+## Contribute
+
+This project is open to contributors!
+Decompiling a video game is a collaborative effort made possible by passionate people.
+
+* If you’d like to know more about how to contribute, feel free to reach out to me on Discord.
+* New pull requests are always welcome!
+
+## Build
 
 Clone the repository:
 
@@ -20,7 +30,7 @@ sudo pacman -S ninja 7zip bchunk
 yay mipsel-linux-gnu-binutils mipsel-linux-gnu-gcc
 ```
 
-Place the necessary disk files:
+Place the required disk images:
 
 ```shell
 'disks/Final Fantasy VII (USA) (Disc 1).bin'
@@ -37,7 +47,10 @@ make
 
 ## Game strings
 
-The game features non-standard ASCII strings. This code base represent them as `_S("Hello FF7!")` and similar. To decode a FF7-style string into ASCII, use the tool as the following:
+The game uses a custom character encoding instead of standard ASCII.
+In this codebase, such strings are represented as `_S("Hello FF7!")`.
+
+To decode a FF7-style string into readable ASCII, use the included tool:
 
 ```shell
 # compile it at least once
@@ -46,6 +59,6 @@ make bin/str
 # specify an overlay and an offset in hex
 bin/str disks/us/MENU/SAVEMENU.MNU 12DF8
 
-# the program will now print on your terminal the FF7 string into readable ASCII
+# The program will print the decoded string to your terminal:
 Saving. Do not remove Memory card.
 ```
