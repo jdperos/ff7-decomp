@@ -315,4 +315,5 @@ with open("build.ninja", "w") as f:
     add_splat_config("config/ending.us.yaml")
     add_splat_config("config/field.us.yaml")
     add_splat_config("config/menubgin.us.yaml")
+    add_splat_config("config/menucnfg.us.yaml")
     add_splat_config("config/menusave.us.yaml")
