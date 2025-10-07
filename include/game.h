@@ -57,15 +57,15 @@ typedef struct {
 typedef struct {
     SaveHeder header;
     u8 save[0x1084];
-    /* 0x10D8 */ u8 D_8009D7BC;     // battle speed
-    /* 0x10D9 */ u8 D_8009D7BD;     // battle message
-    /* 0x10DA */ u16 D_8009D7BE;    // settings
+    /* 0x10D8 */ u8 battle_speed;
+    /* 0x10D9 */ u8 battle_msg_speed;
+    /* 0x10DA */ u16 config;        // settings
     /* 0x10DC */ u8 D_8009D7C0[16]; // ???
-    /* 0x10EC */ u8 D_8009D7D0;     // field message
-    /* 0x10ED */ u8 D_8009D7D1;     // ??
-    /* 0x10EE */ u16 D_8009D7D2;    // ??
-    /* 0x10F0 */ u32 D_8009D7D4;    // ??
-} SaveWork;                         // size: 0x10F4
+    /* 0x10EC */ u8 field_msg_speed;
+    /* 0x10ED */ u8 D_8009D7D1;  // ??
+    /* 0x10EE */ u16 D_8009D7D2; // ??
+    /* 0x10F0 */ u32 D_8009D7D4;
+} SaveWork; // size: 0x10F4
 
 extern u8 D_80049208[12];   // window colors maybe??
 extern u8 D_800492F0[][12]; // see Labels enum
@@ -87,9 +87,8 @@ extern s32 D_8009A004;
 extern s32 D_8009A008;
 extern s32 D_8009A024[8];
 extern SaveWork _work;
-extern s32 D_8009D260;
-extern s8 D_8009D6F7;
-extern u16 D_8009D7BE;
+extern s32 D_8009D260; // part of _work?
+extern s8 D_8009D6F7;  // part of _work?
 extern u8 D_8009CBDC[];
 
 extern u8 D_8009C778[];  // big struct at least 0x1014 long, array of 0x84

@@ -10,6 +10,7 @@ extern u8 D_801D252C[];
 
 u8 D_801D1ADC[] = {0x05, 0x06, 0x04, 0x07, 0x02, 0x03,
                    0x00, 0x01, 0x08, 0x0B, 0x00, 0x00};
+
 unsigned char D_801D1AE8[][0x30] = {
     _S("Window color"),   // 0
     _S("Sound"),          // 1
@@ -50,16 +51,12 @@ unsigned char D_801D1F08[][0x30] = {
     _S("RED"),         // 8
     _S("GREEN"),       // 9
     _S("BLUE"),        // 10
-};
-unsigned char D_801D2118[][0x30] = {
-    _S("Magic order"), //
-};
-unsigned char D_801D2148[][0x30] = {
-    _S("restore"),   // 0
-    _S("attack"),    // 1
-    _S("indirect"),  // 2
-    _S("forbidden"), // 3
-    _S("No."),       // 4
+    _S("Magic order"), // 11
+    _S("restore"),     // 12
+    _S("attack"),      // 13
+    _S("indirect"),    // 14
+    _S("forbidden"),   // 15
+    _S("No."),         // 16
 };
 unsigned char D_801D2238[][0x30] = {
     _S("Left2"),  // 0
@@ -132,7 +129,98 @@ void func_801D014C(s16 x, s16 y, s32 value) {
 
 #endif
 
-INCLUDE_ASM("asm/us/menu/nonmatchings/cnfgmenu", func_801D01C8);
+void func_801D01C8(void) {
+    RECT rect;
+    s32 temp_s4;
+    s32 y;
+    s32 x;
+    s32 var_s2;
+    s32 i;
+    s32 _setting;
+    u8* setting;
+
+    y = D_801D24AA + 33;
+    func_80026F44(40, D_801D24AA + 14, D_801D1AE8[0], 5);
+    for (i = 1; i < 9; i++) {
+        func_80026F44(40, y + (i - 1) * 18, D_801D1AE8[i], 5);
+    }
+    func_80026F44(40, y + (i - 1) * 18, D_801D1AE8[33], 5);
+    for (i = 0; i < 2; i++) {
+        func_80026F44(165 + i * 65, y, D_801D1AE8[15 + i],
+                      -((_work.config & 3) == i) & 7);
+    }
+    for (i = 0; i < 2; i++) {
+        func_80026F44(165 + i * 65, y + 18, D_801D1E48[i],
+                      -(((_work.config >> 2) & 3) == i) & 7);
+    }
+    for (i = 0; i < 2; i++) {
+        func_80026F44(165 + i * 65, y + 0x24, D_801D1EA8[i],
+                      -(((_work.config >> 4) & 3) == i) & 7);
+    }
+    temp_s4 = y + 54;
+    func_80026F44(
+        165, temp_s4, D_801D1F08[0], -(((_work.config >> 6) & 3) == 0) & 7);
+    x = func_80026B70(D_801D1F08[0]);
+    func_80026F44(
+        x + 175, temp_s4, D_801D1F08[1], -(((_work.config >> 6) & 3) == 1) & 7);
+    func_80026F44(x + func_80026B70(D_801D1F08[1]) + 185, temp_s4,
+                  D_801D1F08[2], -(((_work.config >> 6) & 3) == 2) & 7);
+    for (i = 0; i < 2; i++) {
+        func_80026F44(165 + i * 65, y + 126, D_801D1F08[3 + i],
+                      -(((_work.config >> 8) & 3) == i) & 7);
+    }
+    for (i = 0; i < 3; i++) {
+        _setting = D_801D248C[((_work.config >> 10) & 7) * 3 + i];
+        setting = &D_801D248C[((_work.config >> 10) & 7) * 3];
+        func_80026F44(189 + i * 52, y + 0x90, D_801D1F08[12 + setting[i]], 7);
+    }
+    func_80026F44(149, y + 0x90, D_801D1F08[16], 7);
+
+    // battle speed value
+    rect.y = y + 72;
+    rect.w = 8;
+    rect.h = 11;
+    rect.x = (_work.battle_speed >> 1) + 184;
+    func_80028030(&rect);
+
+    // battle message speed value
+    rect.y = y + 0x5A;
+    rect.w = 8;
+    rect.h = 11;
+    rect.x = (_work.battle_msg_speed >> 1) + 184;
+    func_80028030(&rect);
+
+    // field message speed value
+    rect.y = y + 108;
+    rect.w = 8;
+    rect.h = 11;
+    rect.x = (_work.field_msg_speed >> 1) + 184;
+    func_80028030(&rect);
+
+    // speed values
+    for (i = 0; i < 3; i++) {
+        func_80026F44(157, y + 72 + i * 18 + 2, D_801D1F08[7], 7);
+        func_80026F44(324, y + 72 + i * 18 + 2, D_801D1F08[6], 7);
+    }
+
+    // speed bars
+    for (i = 0; i < 3; i++) {
+        rect.x = 184;
+        rect.y = y + 72 + i * 18;
+        rect.w = 136;
+        rect.h = 11;
+        func_80027B84(&rect);
+    }
+
+    // magic order ID
+    func_80029114(173, y + 146, ((_work.config >> 0xA) & 7) + 1, 1, 7);
+
+    rect.x = 0;
+    rect.y = 0;
+    rect.w = 0x100;
+    rect.h = 0x100;
+    func_80026A34(0, 1, 0x1F, &rect);
+}
 
 void func_801D069C(void) {
     volatile s32 dummy;

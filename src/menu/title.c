@@ -321,7 +321,7 @@ s32 func_801D3AB0(s32 arg0) {
                 } else {
                     func_801D2B58(0xD0);
                     D_801E3D54 = 2;
-                    func_801D2D10(D_8009D7BE & 3);
+                    func_801D2D10(_work.config & 3);
                 }
             } else {
                 D_801E2CF8 = 1;
