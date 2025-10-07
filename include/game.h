@@ -41,6 +41,7 @@ typedef union {
     BLK_FILL* blk_fill;
 } Gpu;
 
+extern u8 D_80049208[12];   // window colors maybe??
 extern u8 D_800492F0[][12]; // see Labels enum
 extern u16 D_80062D7C;      // pressed button?
 extern u16 D_80062D7E;      // pressed button?
@@ -61,10 +62,13 @@ extern s32 D_8009A008;
 extern s32 D_8009A024[8];
 extern s32 D_8009C6E4[0x54 / 4]; // memcard slot header?
 extern s32 D_8009D260;
+extern s8 D_8009D6F7;
 extern u16 D_8009D7BE;
 extern u8 D_8009CBDC[];
-extern u8 D_8009C778[];
-extern u8 D_8009C798[];
+
+extern u8 D_8009C778[];  // big struct at least 0x1014 long, array of 0x84
+extern u8 D_8009C798[];  // part of D_8009C778
+extern s32 D_8009CE60[]; // very likely part of D_8009C778
 
 void func_80021044(DRAWENV* draw_env, DISPENV* disp_env);
 void func_80026448(Unk80026448* arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4,
