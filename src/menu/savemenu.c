@@ -557,7 +557,7 @@ end:
 const char D_801D018C[] = "bu10:%s";
 const char D_801D0194[] = "bu00:%s";
 
-s32* func_801D1D1C(s32 arg0) { return D_801E3864[arg0]; }
+SaveHeder* func_801D1D1C(s32 arg0) { return &D_801E3864[arg0]; }
 
 INCLUDE_ASM("asm/us/menu/nonmatchings/savemenu", func_801D1D40);
 
@@ -626,7 +626,7 @@ s16 func_801D2A34(s32 save_id) {
     D_801E3D50 = slot;
     ret = func_801D2408(&sp10, D_801E2CB8[slot]);
     if (!(s16)ret) {
-        __builtin_memcpy(&D_801E3864[slot], D_8009C6E4, 0x54);
+        __builtin_memcpy(&D_801E3864[slot], &_work.header, sizeof(SaveHeder));
     }
     return ret;
 }
@@ -842,7 +842,7 @@ void func_801D370C(s32 x, s32 y, s32 slot_no) {
     SaveHeder* save;
     u8* data;
 
-    save = (SaveHeder*)func_801D1D1C(slot_no);
+    save = func_801D1D1C(slot_no);
     data = (u8*)save;
     func_80026F44(192, y + 46, save->place_name, 7);
     for (i = 0; i < 3; i++) {

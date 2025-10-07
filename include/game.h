@@ -41,6 +41,32 @@ typedef union {
     BLK_FILL* blk_fill;
 } Gpu;
 
+typedef struct {
+    u32 checksum;
+    u8 leader_level;
+    u8 party[3];
+    s8 leader_name[0x10];
+    s32 unk18;
+    s32 unk1C;
+    s32 gil;
+    s32 time;
+    s8 place_name[0x20];
+    s32 menu_color[3];
+} SaveHeder; // size: 0x54
+
+typedef struct {
+    SaveHeder header;
+    u8 save[0x1084];
+    /* 0x10D8 */ u8 D_8009D7BC;     // battle speed
+    /* 0x10D9 */ u8 D_8009D7BD;     // battle message
+    /* 0x10DA */ u16 D_8009D7BE;    // settings
+    /* 0x10DC */ u8 D_8009D7C0[16]; // ???
+    /* 0x10EC */ u8 D_8009D7D0;     // field message
+    /* 0x10ED */ u8 D_8009D7D1;     // ??
+    /* 0x10EE */ u16 D_8009D7D2;    // ??
+    /* 0x10F0 */ u32 D_8009D7D4;    // ??
+} SaveWork;                         // size: 0x10F4
+
 extern u8 D_80049208[12];   // window colors maybe??
 extern u8 D_800492F0[][12]; // see Labels enum
 extern u16 D_80062D7C;      // pressed button?
@@ -60,7 +86,7 @@ extern s16 D_8009A000;
 extern s32 D_8009A004;
 extern s32 D_8009A008;
 extern s32 D_8009A024[8];
-extern s32 D_8009C6E4[0x54 / 4]; // memcard slot header?
+extern SaveWork _work;
 extern s32 D_8009D260;
 extern s8 D_8009D6F7;
 extern u16 D_8009D7BE;

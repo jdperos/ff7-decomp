@@ -1,19 +1,6 @@
 #include <game.h>
 
 typedef struct {
-    u32 checksum;
-    u8 leader_level;
-    u8 party[3];
-    s8 leader_name[0x10];
-    s32 unk18;
-    s32 unk1C;
-    s32 gil;
-    s32 time;
-    s8 place_name[0x20];
-    s32 menu_color[3];
-} SaveHeder;
-
-typedef struct {
     // this whole thing might be a D_801E379C[6]
     /* 0x00 */ Unk80026448 D_801E379C[2];
     /* 0x24 */ u8 unk24[0x40];
@@ -54,7 +41,7 @@ extern DISPENV D_801E3774[2];
 extern Menus menus;
 extern u_long* D_801E3854; // otag pointer
 extern u_long* D_801E3858[2][1];
-extern s32 D_801E3864[][0x54 / 4];
+extern SaveHeder D_801E3864[];
 extern s32 D_801E3D50;
 extern s32 D_801E3D54;
 extern s32 D_801E3D58;     // backbuffer id?

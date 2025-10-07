@@ -312,7 +312,9 @@ s32 func_801D3AB0(s32 arg0) {
             }
             var_s1 = (s16)func_801D1F40(var_a0_3);
             if (var_s1 == 0) {
-                if (*D_8009C6E4 != (u16)func_801D1950(0x10F0, &D_8009C6E4[1])) {
+                if (_work.header.checksum !=
+                    (u16)func_801D1950(
+                        sizeof(SaveWork) - 4, &_work.header.leader_level)) {
                     D_801E2CF8 = 1;
                     func_801D2B58(3);
                     func_8001F6C0(D_801E2CFC[31], 0);
