@@ -59,8 +59,8 @@ typedef struct {
     u8 save[0x1084];
     /* 0x10D8 */ u8 battle_speed;
     /* 0x10D9 */ u8 battle_msg_speed;
-    /* 0x10DA */ u16 config;        // settings
-    /* 0x10DC */ u8 D_8009D7C0[16]; // ???
+    /* 0x10DA */ u16 config; // settings
+    /* 0x10DC */ u8 button_config[16];
     /* 0x10EC */ u8 field_msg_speed;
     /* 0x10ED */ u8 D_8009D7D1;  // ??
     /* 0x10EE */ u16 D_8009D7D2; // ??
@@ -69,6 +69,7 @@ typedef struct {
 
 extern u8 D_80049208[12];   // window colors maybe??
 extern u8 D_800492F0[][12]; // see Labels enum
+extern u16 D_80062D78;      // pressed button?
 extern u16 D_80062D7C;      // pressed button?
 extern u16 D_80062D7E;      // pressed button?
 extern u16 D_80062D80;      // tapped button

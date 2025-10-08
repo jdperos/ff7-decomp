@@ -30,4 +30,6 @@ typedef unsigned int u32;
 typedef u8 unk_data;
 typedef unsigned int* unk_ptr;
 
+#define LEN(x) ((s32)(sizeof(x) / sizeof(*(x))))
+
 #endif

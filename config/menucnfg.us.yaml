@@ -39,7 +39,6 @@ segments:
     subsegments:
       - [0x0, .rodata, cnfgmenu]
       - [0x40, c, cnfgmenu]
-      - [0x1AA8, data]
-      - [0x1ADC, .data, cnfgmenu]
-      - [0x2478, data]
+      - [0x1AA8, .data, cnfgmenu]
+      - [0x24CC, .bss, cnfgmenu]
   - [0x2538]
