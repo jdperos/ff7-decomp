@@ -75,6 +75,7 @@ extern unsigned char D_801E33B0[][0x30];
 
 void func_801D19C4(void);
 void func_801D1BA4(void);
-s16 func_801D2A34(s32 save_id);
+SaveHeder* func_801D1D1C(s32 arg0);
+static s16 func_801D2A34(s32 save_id);
 void func_801D3668(s32 arg0);
 void func_801D370C(s32 x, s32 y, s32 slot_no);

@@ -212,7 +212,7 @@ def add_splat_config(file_name: str):
                 add_s(cfg, f"data/{name}.bss")
             elif kind == "asm":
                 add_s(cfg, name)
-            elif kind == "c":
+            elif kind == "c" or kind == ".data":
                 add_c(cfg, name)
     output_name = f"{build_path(cfg)}/{basename(cfg)}.elf"
     sym_export = "config/sym_export.us.txt"
@@ -224,6 +224,12 @@ def add_splat_config(file_name: str):
         )
     else:
         objs.append(sym_export)
+    sym_paths = [
+        f"-T {cfg["options"]["undefined_syms_auto_path"]}",
+        f"-T config/sym_extern.us.txt",
+    ]
+    if is_main:
+        sym_paths.append("-T config/sym_ovl_export.us.txt")
     nw.build(
         rule="psx-ld",
         outputs=[output_name],
@@ -232,26 +238,51 @@ def add_splat_config(file_name: str):
         variables={
             "map_path": f"{build_path(cfg)}/{basename(cfg)}.map",
             "obj_paths": objs,
-            "symbol_path": str.join(
-                " ",
-                [
-                    f"-T {cfg["options"]["undefined_syms_auto_path"]}",
-                    f"-T config/sym_extern.us.txt",
-                ],
-            ),
+            "symbol_path": str.join(" ", sym_paths),
         },
     )
-    nw.build(
-        rule="psx-exe",
-        outputs=[f"{build_path(cfg)}/{basename(cfg)}.exe"],
-        inputs=[f"{build_path(cfg)}/{basename(cfg)}.elf"],
-    )
+    if is_main:
+        # main must be linked twice:
+        # 1. generate sym_export.*.txt and allow other overlays to use SDK funcs
+        # 2. to allow overlays re-generating sym_ovl_export.*.txt
+        nw.build(
+            rule="ovl-sym-export",
+            outputs=["config/sym_ovl_export.us.txt"],
+            inputs=get_ovl_elf_list("config/check.sha1"),
+        )
+        nw.build(
+            rule="psx-ld",
+            outputs=[f"{build_path(cfg)}/{basename(cfg)}_final.elf"],
+            inputs=[ld_path(cfg)],
+            implicit=objs + ["config/sym_ovl_export.us.txt"],
+            variables={
+                "map_path": f"{build_path(cfg)}/{basename(cfg)}.map",
+                "obj_paths": objs,
+                "symbol_path": str.join(" ", sym_paths),
+            },
+        )
+        nw.build(
+            rule="psx-exe",
+            outputs=[f"{build_path(cfg)}/{basename(cfg)}.exe"],
+            inputs=[f"{build_path(cfg)}/{basename(cfg)}_final.elf"],
+        )
+    else:
+        nw.build(
+            rule="psx-exe",
+            outputs=[f"{build_path(cfg)}/{basename(cfg)}.exe"],
+            inputs=[f"{build_path(cfg)}/{basename(cfg)}.elf"],
+        )
 
 
 def get_check_list(file_path) -> list[str]:
     with open(file_path, "r") as f:
         lines = f.readlines()
     return [line.strip().split(" ")[2] for line in lines if line]
+
+
+def get_ovl_elf_list(file_path) -> list[str]:
+    checks = get_check_list(file_path)
+    return [x.replace(".exe", ".elf") for x in checks if not x.endswith("main.exe")]
 
 
 with open("build.ninja", "w") as f:
@@ -295,8 +326,13 @@ with open("build.ninja", "w") as f:
     )
     nw.rule(
         "sym-export",
-        command=f".venv/bin/python3 tools/symbols.py $in $out",
+        command=".venv/bin/python3 tools/symbols.py $in > $out",
         description="sym export $in",
+    )
+    nw.rule(
+        "ovl-sym-export",
+        command=".venv/bin/python3 tools/symbols.py $in > $out",
+        description="sym ovl export $out",
     )
     nw.rule(
         "check",

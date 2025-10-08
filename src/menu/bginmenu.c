@@ -46,7 +46,7 @@ void func_801D00C4(void) {
     }
 }
 
-void func_801D01BC(void) {}
+static void func_801D01BC(void) {}
 
 #ifndef NON_MATCHINGS
 INCLUDE_ASM("asm/us/menu/nonmatchings/bginmenu", func_801D01C4);
@@ -81,9 +81,11 @@ s32 func_801D01C4(s32 arg0) {
 }
 #endif
 
-s32 func_801D0258(Unk801D026C* arg0) { return arg0->unk0 | (arg0->unk1 << 8); }
+static s32 func_801D0258(Unk801D026C* arg0) {
+    return arg0->unk0 | (arg0->unk1 << 8);
+}
 
-void func_801D026C(Unk801D026C* arg0, u16 arg1) {
+static void func_801D026C(Unk801D026C* arg0, u16 arg1) {
     arg0->unk0 = arg1;
     arg0->unk1 = arg1 >> 8;
 }

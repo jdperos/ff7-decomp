@@ -1,14 +1,14 @@
 //! PSYQ=3.3 CC1=2.7.2
 #include "savemenu.h"
 
-void func_801D0408(u16 arg0) {
+static void func_801D0408(u16 arg0) {
     D_8009A000 = 0x30;
     D_8009A004 = arg0;
     D_8009A008 = arg0;
     func_8002DA7C(arg0);
 }
 
-s32 func_801D0448(s32 arg0) {
+static s32 func_801D0448(s32 arg0) {
     RECT rect;
 
     setTile(D_80062F24.tile);
@@ -47,7 +47,7 @@ void func_801D05C0(u8 arg0) {
     func_801D19C4();
 }
 
-void func_801D0670(void) {
+static void func_801D0670(void) {
     func_80025BD0(D_801E8F44);
     func_80025C54(D_801E4538);
     func_801D1BA4();
@@ -498,12 +498,12 @@ void func_801D19C4(void) {
 
 void func_801D1BA4(void) {}
 
-void func_801D1BAC(s32 arg0, s32 arg1) {
+static void func_801D1BAC(s32 arg0, s32 arg1) {
     TestEvent(D_8009A024[arg1], arg1 * 4);
 }
 
 // strcmp?
-s32 func_801D1BE0(u8* arg0, u8* arg1) {
+static s32 func_801D1BE0(u8* arg0, u8* arg1) {
     while (1) {
         if (*arg0++ != *arg1++) {
             return 0;
@@ -563,7 +563,7 @@ INCLUDE_ASM("asm/us/menu/nonmatchings/savemenu", func_801D1D40);
 
 INCLUDE_ASM("asm/us/menu/nonmatchings/savemenu", func_801D1F40);
 
-s32 func_801D2150(s8 arg0) {
+static s32 func_801D2150(s8 arg0) {
     if (arg0 > -0x68 && arg0 < -0x60 || arg0 > -32 && arg0 < -3) {
         return 1;
     }
@@ -577,14 +577,14 @@ s32 func_801D2184(s8 arg0) {
     return 0;
 }
 
-void func_801D21B8(u8* arg0, u8* arg1) {
+static void func_801D21B8(u8* arg0, u8* arg1) {
     s32 i;
     for (i = 0; i < 0x40; i++) {
         *arg0++ = *arg1++;
     }
 }
 
-void func_801D21E0(s32 arg0) { D_801E2CB4 = arg0; }
+static void func_801D21E0(s32 arg0) { D_801E2CB4 = arg0; }
 
 void func_801D21F0(u8* arg0, u8* arg1) {
     s32 i;
@@ -612,7 +612,7 @@ static const char* D_801E2CB8[] = {
     "ＦＦ７／ＳＡＶＥ１５／１１：１１",
 };
 
-s16 func_801D2A34(s32 save_id) {
+static s16 func_801D2A34(s32 save_id) {
     char sp10[0x40];
     s32 ret;
     s32 slot;
@@ -631,63 +631,8 @@ s16 func_801D2A34(s32 save_id) {
     return ret;
 }
 
-void func_801D2B58(u16 arg0) {
-    D_8009A000 = 0x30;
-    D_8009A004 = arg0;
-    D_8009A008 = arg0;
-    func_8002DA7C();
-}
-
-static s32 D_801E2CF4 = 0xFF;
-u32 D_801E2CF8 = 0; // used by title.c
-s32 func_801D2B98(s32 arg0) {
-    RECT rect;
-
-    setTile(D_80062F24.tile);
-    SetSemiTrans(D_80062F24.tile, 1);
-    D_80062F24.tile->x0 = 0;
-    D_80062F24.tile->y0 = 0;
-    D_80062F24.tile->w = 0x180;
-    D_80062F24.tile->h = 0xE8;
-    D_80062F24.tile->r0 = (u8)D_801E2CF4;
-    D_80062F24.tile->g0 = (u8)D_801E2CF4;
-    D_80062F24.tile->b0 = (u8)D_801E2CF4;
-    AddPrim(D_80062FC4, D_80062F24.tile++);
-    rect.x = 0;
-    rect.y = 0;
-    rect.w = 255;
-    rect.h = 255;
-    func_80026A34(0, 1, 0x5F, &rect);
-    D_801E2CF4 += arg0;
-    if (D_801E2CF4 < 0) {
-        D_801E2CF4 = 0;
-    }
-    if (D_801E2CF4 >= 0x100) {
-        D_801E2CF4 = 0xFF;
-    }
-    return D_801E2CF4;
-}
-
-void func_801D2D10(s32 arg0) {
-    switch (arg0) {
-    case 0:
-        D_8009A000 = 0x81;
-        D_8009A004 = 0x81;
-        D_8009A008 = 0x81;
-        break;
-    case 1:
-        D_8009A000 = 0x80;
-        D_8009A004 = 0x80;
-        D_8009A008 = 0x80;
-        break;
-    case 2:
-        D_8009A000 = 0x82;
-        D_8009A004 = 0x82;
-        D_8009A008 = 0x82;
-        break;
-    }
-    func_8002DA7C();
-}
+s32 D_801E2CF4 = 0xFF; // used by title.c
+u32 D_801E2CF8 = 0;    // used by title.c
 
 unsigned char D_801E2CFC[][0x24] = {
     _S("Load"),
@@ -755,130 +700,3 @@ unsigned char D_801E33B0[][0x30] = {
     _S("‘’"),
     _S(""),
 };
-
-INCLUDE_ASM("asm/us/menu/nonmatchings/savemenu", func_801D2DA8);
-
-void func_801D32C0(void) {
-    TestEvent(D_8009A024[0]);
-    TestEvent(D_8009A024[1]);
-    TestEvent(D_8009A024[2]);
-    TestEvent(D_8009A024[3]);
-}
-
-void func_801D3318(void) {
-    TestEvent(D_8009A024[4]);
-    TestEvent(D_8009A024[5]);
-    TestEvent(D_8009A024[6]);
-    TestEvent(D_8009A024[7]);
-}
-
-s32 func_801D3370(void) {
-    while (1) {
-        if (TestEvent(D_8009A024[0]) == 1) {
-            return 0;
-        }
-        if (TestEvent(D_8009A024[1]) == 1) {
-            return 1;
-        }
-        if (TestEvent(D_8009A024[2]) == 1) {
-            return 2;
-        }
-        if (TestEvent(D_8009A024[3]) == 1) {
-            return 3;
-        }
-    }
-}
-
-s32 func_801D33F4(void) {
-    while (1) {
-        if (TestEvent(D_8009A024[4]) == 1) {
-            return 0;
-        }
-        if (TestEvent(D_8009A024[5]) == 1) {
-            return 1;
-        }
-        if (TestEvent(D_8009A024[6]) == 1) {
-            return 2;
-        }
-        if (TestEvent(D_8009A024[7]) == 1) {
-            return 3;
-        }
-    }
-}
-
-INCLUDE_ASM("asm/us/menu/nonmatchings/savemenu", func_801D3478);
-
-void func_801D3668(s32 arg0) {
-    if (!(arg0 & 0x3F)) {
-        func_801D3478(0);
-        func_801D3478(1);
-    }
-}
-
-s32 func_801D3698(s32 arg0, s32 arg1) {
-    s32 var_a0;
-    s32 i;
-    s32 ret;
-
-    for (i = 0; i < 0x14; i++) {
-        var_a0 = arg1;
-        if (arg0) {
-            var_a0 |= 0x10;
-        }
-        if (func_801D1D40(var_a0) == 0) {
-            ret = 0;
-            break;
-        }
-        ret = 1;
-    }
-    return ret;
-}
-
-void func_801D370C(s32 x, s32 y, s32 slot_no) {
-    RECT sp28;
-    RECT rect;
-    s32 i;
-    s32 j;
-    SaveHeder* save;
-    u8* data;
-
-    save = func_801D1D1C(slot_no);
-    data = (u8*)save;
-    func_80026F44(192, y + 46, save->place_name, 7);
-    for (i = 0; i < 3; i++) {
-        if (data[i + 5] != 0xFF) {
-            func_8001D180(
-                22 + i * 52, y + 6, 48, 48, (data[i + 5] >= 5) ? 48 : 0,
-                (data[i + 5] % 5) * 48, 48, 48, data[i + 5], 0);
-        }
-    }
-
-    rect.x = 0;
-    rect.y = 0;
-    rect.w = 0xFF;
-    rect.h = 0xFF;
-    func_80026A34(0, 1, 127, &rect);
-    func_80028E00(
-        func_80026B70(D_801E3684) + 194, y + 28, save->leader_level, 2, 7);
-    func_8002708C(338, y + 12, 213, 7); // prints the ':' symbol maybe?
-    func_80029114(324, y + 11, func_80023788(save->time), 2, 7);
-    func_80029114(345, y + 11, func_8002382C(save->time), 2, 7);
-    func_80028E00(309, y + 25, save->gil, 7, 7);
-
-    rect.x = 0;
-    rect.y = 0;
-    rect.w = 0x100;
-    rect.h = 0x100;
-    func_80026A34(0, 1, 127, &rect);
-    func_80026F44(189, y + 26, D_801E3684, 5);
-    func_80026F44(184, y + 8, save->leader_name, 7);
-    func_80026F44(284, y + 9, D_800492F0[LABEL_TIME], 7);
-    func_80026F44(284, y + 23, D_800492F0[LABEL_GIL], 7);
-    func_8001DEF0(save->menu_color);
-
-    for (j = 0; j < 3; j++) {
-        func_8001DE40(&sp28, &D_801E3650[j]);
-        func_8001DE24(&sp28, 0, y);
-        func_8001E040(&sp28);
-    }
-}
