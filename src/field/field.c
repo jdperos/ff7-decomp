@@ -1,14 +1,12 @@
 #include "common.h"
 
-INCLUDE_ASM("asm/us/field/nonmatchings/field", func_800A0000);
-
-INCLUDE_ASM("asm/us/field/nonmatchings/field", func_800A0004);
-
 INCLUDE_ASM("asm/us/field/nonmatchings/field", func_800A1368);
 
 INCLUDE_ASM("asm/us/field/nonmatchings/field", func_800A1498);
 
 INCLUDE_ASM("asm/us/field/nonmatchings/field", func_800A14D8);
+
+INCLUDE_ASM("asm/us/field/nonmatchings/field", func_800A16CC);
 
 INCLUDE_ASM("asm/us/field/nonmatchings/field", func_800A2314);
 
@@ -90,7 +88,8 @@ INCLUDE_ASM("asm/us/field/nonmatchings/field", func_800AA930);
 
 INCLUDE_ASM("asm/us/field/nonmatchings/field", func_800AAB24);
 
-void func_800AB2AC(void) {}
+void func_800AB2AC(void) {
+}
 
 INCLUDE_ASM("asm/us/field/nonmatchings/field", func_800AB2B4);
 
@@ -158,19 +157,37 @@ INCLUDE_ASM("asm/us/field/nonmatchings/field", func_800B1E40);
 
 INCLUDE_ASM("asm/us/field/nonmatchings/field", func_800B2598);
 
+INCLUDE_ASM("asm/us/field/nonmatchings/field", func_800B2A00);
+
 INCLUDE_ASM("asm/us/field/nonmatchings/field", func_800B2DD4);
 
 INCLUDE_ASM("asm/us/field/nonmatchings/field", func_800B2F40);
+
+INCLUDE_ASM("asm/us/field/nonmatchings/field", func_800B480C);
+
+INCLUDE_ASM("asm/us/field/nonmatchings/field", func_800B4B04);
+
+INCLUDE_ASM("asm/us/field/nonmatchings/field", func_800B4EAC);
 
 INCLUDE_ASM("asm/us/field/nonmatchings/field", func_800B5260);
 
 INCLUDE_ASM("asm/us/field/nonmatchings/field", func_800B5504);
 
+INCLUDE_ASM("asm/us/field/nonmatchings/field", func_800B62C4);
+
 INCLUDE_ASM("asm/us/field/nonmatchings/field", func_800B69C0);
+
+INCLUDE_ASM("asm/us/field/nonmatchings/field", func_800B6AE4);
+
+INCLUDE_ASM("asm/us/field/nonmatchings/field", func_800B6B4C);
 
 INCLUDE_ASM("asm/us/field/nonmatchings/field", func_800B79B8);
 
+INCLUDE_ASM("asm/us/field/nonmatchings/field", func_800B86D8);
+
 INCLUDE_ASM("asm/us/field/nonmatchings/field", func_800B8CF0);
+
+INCLUDE_ASM("asm/us/field/nonmatchings/field", func_800B9B0C);
 
 INCLUDE_ASM("asm/us/field/nonmatchings/field", func_800BA534);
 
@@ -740,9 +757,11 @@ INCLUDE_ASM("asm/us/field/nonmatchings/field", func_800D44E8);
 
 INCLUDE_ASM("asm/us/field/nonmatchings/field", func_800D4780);
 
-void func_800D4838(void) {}
+void func_800D4838(void) {
+}
 
-void func_800D4840(void) {}
+void func_800D4840(void) {
+}
 
 INCLUDE_ASM("asm/us/field/nonmatchings/field", func_800D4848);
 
