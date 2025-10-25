@@ -67,6 +67,82 @@ typedef struct {
     /* 0x10F0 */ u32 D_8009D7D4;
 } SaveWork; // size: 0x10F4
 
+typedef struct {
+    s32 unk0;
+    s32 unk4;
+    s32 unk8;
+    s32 unkC;
+    s32 unk10;
+    s32 unk14;
+    s32 unk18;
+    s32 unk1C;
+    s32 unk20;
+    s32 unk24;
+    s32 unk28;
+    s32 unk2C;
+    s32 unk30;
+    s32 unk34;
+    s32 unk38;
+    s32 unk3C;
+    s32 unk40;
+    s32 unk44;
+    s32 unk48;
+    s32 unk4C;
+    s32 unk50;
+    s32 unk54;
+    s32 unk58;
+    s32 unk5C;
+    s32 unk60;
+    s32 unk64;
+    s32 unk68;
+    s32 unk6C;
+    s32 unk70;
+    s32 unk74;
+    s32 unk78;
+    s32 unk7C;
+    s32 unk80;
+    s32 unk84;
+    s32 unk88;
+    s32 unk8C;
+    s32 unk90;
+    s32 unk94;
+    s32 unk98;
+    s32 unk9C;
+    s32 unkA0;
+    s32 unkA4;
+    s32 unkA8;
+    s32 unkAC;
+    s32 unkB0;
+    s32 unkB4;
+    s32 unkB8;
+    s32 unkBC;
+    s32 unkC0;
+    s32 unkC4;
+    s32 unkC8;
+    s32 unkCC;
+    s32 unkD0;
+    s32 unkD4;
+    s32 unkD8;
+    s32 unkDC;
+    s32 unkE0;
+    s32 unkE4;
+    s32 unkE8;
+    s32 unkEC;
+    s32 unkF0;
+    s32 unkF4;
+    s32 unkF8;
+    s32 unkFC;
+    s32 unk100[0x40];
+    s32 unk200;
+    s32 unk204;
+    s32 unk208;
+    s32 unk20C;
+    s32 unk210;
+    s32 unk214;
+    s32 unk218;
+    s32 unk21C;
+} Unk800A8D04; // size: ???
+
 extern u8 D_80049208[12];   // window colors maybe??
 extern u8 D_800492F0[][12]; // see Labels enum
 extern u16 D_80062D78;      // pressed button?
@@ -80,6 +156,7 @@ extern Gpu D_80062F24;
 extern u16 D_80062F3C;
 extern s32 D_80062F58;
 extern u_long* D_80062FC4;
+extern Unk800A8D04* D_80063014;
 extern DRAWENV D_800706A4[2];
 extern s32 D_800756F8[];
 extern s8 D_80077F64[2][0x3400]; // polygon buffer
@@ -96,10 +173,16 @@ extern u8 D_8009C778[];  // big struct at least 0x1014 long, array of 0x84
 extern u8 D_8009C798[];  // part of D_8009C778
 extern s32 D_8009CE60[]; // very likely part of D_8009C778
 
+s32 func_80014B70(void);
+s32 func_80014BA8(s32 arg0);
+void func_8001726C(s16, u16);
 void func_80021044(DRAWENV* draw_env, DISPENV* disp_env);
 void func_80026448(Unk80026448* arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4,
                    s32 arg5, s32 arg6, s32 arg7, s32 arg8, s32 arg9, s32 arg10,
                    s32 arg11, s32 arg12, u16 arg13);
+void func_800269C0(void* poly);
+s32 func_80026B70(unsigned char* str);
+s32 func_80034B44();
 
 // from overlays
 extern s32 D_8019DAA0;
