@@ -1,5 +1,6 @@
 #include "common.h"
 
+const u32 D_800A0000[] = {0, 0x01D801E0};
 INCLUDE_ASM("asm/us/field/nonmatchings/field", func_800A1368);
 
 INCLUDE_ASM("asm/us/field/nonmatchings/field", func_800A1498);
@@ -8,6 +9,12 @@ INCLUDE_ASM("asm/us/field/nonmatchings/field", func_800A14D8);
 
 INCLUDE_ASM("asm/us/field/nonmatchings/field", func_800A16CC);
 
+const u32 D_800A0024[] = {0x00000000, 0x000801E0};
+const u32 D_800A002C[] = {0x00E80000, 0x000801E0};
+const u32 D_800A0034[] = {0x01D00000, 0x000801E0};
+const u32 D_800A003C[] = {0x00000000, 0x00080140};
+const u32 D_800A0044[] = {0x00E80000, 0x00080140};
+const u32 D_800A004C[] = {0x01D00000, 0x00080140};
 INCLUDE_ASM("asm/us/field/nonmatchings/field", func_800A2314);
 
 INCLUDE_ASM("asm/us/field/nonmatchings/field", func_800A2D5C);
@@ -80,10 +87,12 @@ INCLUDE_ASM("asm/us/field/nonmatchings/field", func_800AA348);
 
 INCLUDE_ASM("asm/us/field/nonmatchings/field", func_800AA514);
 
+const u32 D_800A00BC[] = {0x00360000, 0x012A007A};
 INCLUDE_ASM("asm/us/field/nonmatchings/field", func_800AA5E4);
 
 INCLUDE_ASM("asm/us/field/nonmatchings/field", func_800AA870);
 
+const u32 D_800A00DC[] = {0x00000000};
 INCLUDE_ASM("asm/us/field/nonmatchings/field", func_800AA930);
 
 INCLUDE_ASM("asm/us/field/nonmatchings/field", func_800AAB24);
@@ -198,6 +207,7 @@ INCLUDE_ASM("asm/us/field/nonmatchings/field", func_800BAF54);
 
 INCLUDE_ASM("asm/us/field/nonmatchings/field", func_800BB1B4);
 
+const u32 D_800A013C[] = {0x00000000, 0x00000000};
 INCLUDE_ASM("asm/us/field/nonmatchings/field", func_800BB3A8);
 
 INCLUDE_ASM("asm/us/field/nonmatchings/field", func_800BBBCC);

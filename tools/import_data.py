@@ -77,6 +77,8 @@ def to_c_array(asm_data: list[str], is_signed: bool, is_const: bool) -> str:
 def find_first_function_ref(asm_path: str, sym_name: str) -> str | None:
     for root, dirs, files in os.walk(asm_path):
         for file_name in files:
+            if file_name.startswith("D_"):
+                continue
             file_path = os.path.join(root, file_name)
             with open(file_path, "r") as file:
                 if sym_name in file.read():

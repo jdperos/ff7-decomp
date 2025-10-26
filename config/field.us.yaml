@@ -11,7 +11,7 @@ options:
   compiler:     GCC
   symbol_addrs_path:
     - config/sym_export.us.txt
-    - config/symbols.field.txt
+    - config/symbols.field.us.txt
   create_undefined_funcs_auto: no
   undefined_funcs_auto_path: config/undefined_funcs_auto.field.us.txt
   create_undefined_syms_auto: yes
@@ -19,6 +19,7 @@ options:
   find_file_boundaries: yes
   use_legacy_include_asm: no
   asm_jtbl_label_macro: jlabel
+  migrate_rodata_to_functions: true
   disassemble_all: true
   global_vram_start: 0x800A0000
   section_order:
@@ -36,7 +37,7 @@ segments:
     align: 4
     subalign: 4
     subsegments:
-      - [0x0, rodata]
+      - [0x0, .rodata, field]
       - [0x1368, c, field]
       - [0x3A5B8, data]
   - [0x40748]
