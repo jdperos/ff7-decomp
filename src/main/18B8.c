@@ -1462,7 +1462,7 @@ INCLUDE_ASM("asm/us/main/nonmatchings/18B8", func_80025B10);
 
 INCLUDE_ASM("asm/us/main/nonmatchings/18B8", func_80025B48);
 
-s32 func_80025B7C(void) { return D_8009D260; }
+s32 func_80025B7C(void) { return _work.D_8009D260; }
 
 void func_80025B8C(u_long* image) {
     RECT rect;

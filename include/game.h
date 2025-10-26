@@ -56,7 +56,13 @@ typedef struct {
 
 typedef struct {
     SaveHeder header;
-    u8 save[0x1084];
+    /* 0x54 */ u8 save1[0xB28];
+    /* 0xB7C */ s32 D_8009D260;
+    /* 0xB80 */ u8 D_8009D264[0x3C];
+    /* 0xBBC */ u16 D_8009D2A0;
+    /* 0xBBE */ u8 D_8009D2A2;
+    /* 0xBBF */ u8 D_8009D2A3;
+    /* 0xBC0 */ u8 save2[0x518];
     /* 0x10D8 */ u8 battle_speed;
     /* 0x10D9 */ u8 battle_msg_speed;
     /* 0x10DA */ u16 config; // settings
@@ -120,8 +126,7 @@ typedef struct {
     s32 unkC4;
     s32 unkC8;
     s32 unkCC;
-    s32 unkD0;
-    s32 unkD4;
+    u8 unkD0[8];
     s32 unkD8;
     s32 unkDC;
     s32 unkE0;
@@ -141,6 +146,16 @@ typedef struct {
     s32 unk214;
     s32 unk218;
     s32 unk21C;
+    s32 unk220;
+    s32 unk224;
+    s32 unk228;
+    s32 unk22C;
+    s32 unk230;
+    s32 unk234;
+    s32 unk238;
+    s32 unk23C;
+    s32 unk240;
+    s32 unk244;
 } Unk800A8D04; // size: ???
 
 extern u8 D_80049208[12];   // window colors maybe??
@@ -164,8 +179,7 @@ extern s16 D_8009A000;
 extern s32 D_8009A004;
 extern s32 D_8009A008;
 extern s32 D_8009A024[8];
-extern SaveWork _work;
-extern s32 D_8009D260; // part of _work?
+extern SaveWork _work; // 0x8009C6E4
 extern s8 D_8009D6F7;  // part of _work?
 extern u8 D_8009CBDC[];
 
