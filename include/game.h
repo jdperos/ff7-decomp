@@ -242,6 +242,8 @@ extern SaveWork _work; // 0x8009C6E4
 
 s32 func_80014B70(void);
 s32 func_80014BA8(s32 arg0);
+s32 func_8001521C(s32);
+void func_800155A4(s32);
 void func_8001726C(s16, u16);
 void func_80021044(DRAWENV* draw_env, DISPENV* disp_env);
 void func_80026448(Unk80026448* arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4,
