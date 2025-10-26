@@ -1409,14 +1409,14 @@ INCLUDE_ASM("asm/us/main/nonmatchings/18B8", func_80025380);
 
 s32 func_8002542C(s32 arg0) {
     s32 i;
-    for (i = 0; i < 0xC8; i++) {
-        if (D_8009CE60[i] == -1) {
-            D_8009CE60[i] = arg0;
+    for (i = 0; i < MAX_MATERIA_COUNT; i++) {
+        if (_work.materia[i] == -1) {
+            _work.materia[i] = arg0;
             if (func_8002603C(arg0 & 0xFF) == 10) {
-                ((u8*)D_8009CE60)[0x473] |= 1;
+                _work.unkBEF |= 1;
             }
-            if ((arg0 & 0xFF) == 0x2C) {
-                ((u8*)D_8009CE60)[0x473] |= 2;
+            if ((arg0 & 0xFF) == 44) {
+                _work.unkBEF |= 2;
             }
             return -1;
         }
@@ -1462,7 +1462,7 @@ INCLUDE_ASM("asm/us/main/nonmatchings/18B8", func_80025B10);
 
 INCLUDE_ASM("asm/us/main/nonmatchings/18B8", func_80025B48);
 
-s32 func_80025B7C(void) { return _work.D_8009D260; }
+s32 SYS_gil(void) { return _work.gil; }
 
 void func_80025B8C(u_long* image) {
     RECT rect;

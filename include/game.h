@@ -9,6 +9,10 @@
 #define _SL(len, x) x // same as _S, but for fixed-length strings with padding
 #endif
 
+#define MAX_PARTY_COUNT 9
+#define MAX_INVENTORY_COUNT 320
+#define MAX_MATERIA_COUNT 200
+
 typedef unsigned char ff7s[];
 
 typedef enum {
@@ -54,18 +58,73 @@ typedef struct {
     s32 menu_color[3];
 } SaveHeder; // size: 0x54
 
+// partially inspired by Q-Gears 'VI. The Save game format'
+typedef struct {
+    u8 unk0;
+    u8 level;
+    u8 strength;
+    u8 vitality;
+    u8 magic;
+    u8 spirit;
+    u8 dexterity;
+    u8 luck;
+    u8 strength_bonus;
+    u8 vitality_bonus;
+    u8 magic_bonus;
+    u8 spirit_bonus;
+    u8 dexterity_bonus;
+    u8 luck_bonus;
+    u8 limit_level;
+    u8 limit_charge;
+    u8 name[12];
+    u8 weapon;
+    u8 armor;
+    u8 accessory;
+    u8 unk1F;
+    u8 unk20;
+    u8 unk21;
+    u16 limit_learn;
+    u16 kill_count;
+    u16 limit_lv1_count;
+    u16 limit_lv2_count;
+    u16 limit_lv3_count;
+    u16 hp_cur;
+    u16 hp_base;
+    u16 mp_cur;
+    u16 mp_base;
+    u32 unk34;
+    u16 hp_max;
+    u16 mp_max;
+    u32 exp;
+    u8 materia_weapon[8];
+    u8 materia_armor[8];
+    u8 unk50[0x34];
+} SavePartyMember;
 typedef struct {
     SaveHeder header;
-    /* 0x54 */ u8 save1[0xB28];
-    /* 0xB7C */ s32 D_8009D260;
-    /* 0xB80 */ u8 D_8009D264[0x3C];
+    /* 0x54 */ SavePartyMember party[MAX_PARTY_COUNT];
+    /* 0x4F8 */ u8 partyID[4];
+    /* 0x4FC */ u16 inventory[MAX_INVENTORY_COUNT];
+    /* 0x77C */ s32 materia[MAX_MATERIA_COUNT];
+    /* 0xA9C */ u8 unkA9C[0xE0];
+    /* 0xB7C */ s32 gil;
+    /* 0xB80 */ s32 time;
+    /* 0xB84 */ u8 D_8009D264[0x38];
     /* 0xBBC */ u16 D_8009D2A0;
     /* 0xBBE */ u8 D_8009D2A2;
     /* 0xBBF */ u8 D_8009D2A3;
-    /* 0xBC0 */ u8 save2[0x518];
+    /* 0xBC0 */ u8 unkBC0[0x10];
+    /* 0xBD0 */ u8 unkBD0[0x10];
+    /* 0xBE0 */ u8 unkBE0[15];
+    /* 0xBEF */ u8 unkBEF;
+    /* 0xBF0 */ u8 unkBF0[0x420];
+    /* 0x1010 */ u16 unk1010;
+    /* 0x1012 */ u8 unk1012;
+    /* 0x1013 */ u8 unk1013;
+    /* 0x1014 */ u8 unk1014[0xC4];
     /* 0x10D8 */ u8 battle_speed;
     /* 0x10D9 */ u8 battle_msg_speed;
-    /* 0x10DA */ u16 config; // settings
+    /* 0x10DA */ u16 config;
     /* 0x10DC */ u8 button_config[16];
     /* 0x10EC */ u8 field_msg_speed;
     /* 0x10ED */ u8 D_8009D7D1;  // ??
@@ -87,7 +146,7 @@ typedef struct {
     s32 unk28;
     s32 unk2C;
     s32 unk30;
-    s32 unk34;
+    u8 unk34[4]; // character spacing array
     s32 unk38;
     s32 unk3C;
     s32 unk40;
@@ -180,12 +239,6 @@ extern s32 D_8009A004;
 extern s32 D_8009A008;
 extern s32 D_8009A024[8];
 extern SaveWork _work; // 0x8009C6E4
-extern s8 D_8009D6F7;  // part of _work?
-extern u8 D_8009CBDC[];
-
-extern u8 D_8009C778[];  // big struct at least 0x1014 long, array of 0x84
-extern u8 D_8009C798[];  // part of D_8009C778
-extern s32 D_8009CE60[]; // very likely part of D_8009C778
 
 s32 func_80014B70(void);
 s32 func_80014BA8(s32 arg0);

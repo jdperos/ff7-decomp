@@ -612,7 +612,7 @@ s32 func_801D4CC0(void) {
     PutDispEnv(&D_801E3EEC[1]);
     PutDrawEnv(&D_801E3E34[1]);
     for (i = 0; i < 3; i++) {
-        if (D_8009CBDC[i] != 0xFF) {
+        if (_work.partyID[i] != 0xFF) {
             func_80020058(i);
             func_8001786C((u8)i);
         }

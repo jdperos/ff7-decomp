@@ -1,4 +1,5 @@
 main = 0x80011C1C;
+SYS_gil = 0x80025B7C;
 func_80026A0C = 0x80026A0C;
 DS_init = 0x80033B70;
 DS_reset_members = 0x80033C08;
