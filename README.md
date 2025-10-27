@@ -39,6 +39,14 @@ Place the required disk images:
 'disks/Final Fantasy VII (USA) (Interactive Sampler CD).cue' # OPTIONAL!
 ```
 
+Install Python packages:
+
+```shell
+python3 -m venv .venv
+source .venv/bin/activate
+python3 -m pip install -r requirements.txt
+```
+
 Then build the project:
 
 ```shell
