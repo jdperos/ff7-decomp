@@ -20,7 +20,7 @@ cd ff7-decomp
 Install the necessary dependencies:
 
 ```shell
-make dependencies
+make requirements
 
 # Debian/Ubuntu
 sudo apt install ninja-build 7zip bchunk binutils-mipsel-linux-gnu gcc-mipsel-linux-gnu
@@ -37,14 +37,6 @@ Place the required disk images:
 'disks/Final Fantasy VII (USA) (Disc 1).cue'
 'disks/Final Fantasy VII (USA) (Interactive Sampler CD).bin' # OPTIONAL!
 'disks/Final Fantasy VII (USA) (Interactive Sampler CD).cue' # OPTIONAL!
-```
-
-Install Python packages:
-
-```shell
-python3 -m venv .venv
-source .venv/bin/activate
-python3 -m pip install -r requirements.txt
 ```
 
 Then build the project:
