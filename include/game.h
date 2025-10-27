@@ -99,7 +99,7 @@ typedef struct {
     u8 materia_weapon[8];
     u8 materia_armor[8];
     u8 unk50[0x34];
-} SavePartyMember;
+} SavePartyMember; // size:0x84
 typedef struct {
     SaveHeder header;
     /* 0x54 */ SavePartyMember party[MAX_PARTY_COUNT];
@@ -217,6 +217,31 @@ typedef struct {
     s32 unk244;
 } Unk800A8D04; // size: ???
 
+// seems to be related to a party member during battle
+typedef struct {
+    s32 unk0;
+    s16 unk4;
+    s8 unk6;
+    s8 unk7;
+    s16 unk8;
+    s16 unkA;
+    s16 unkC;
+    s16 unkE;
+    s16 unk10;
+    s16 unk12;
+    s16 unk14;
+    s16 unk16;
+    s32 unk18;
+    s32 unk1C;
+    s8 unk20;
+    s8 unk21;
+    s8 unk22;
+    s8 unk23;
+    u8 unk24[0x28];
+    u8 un4C[4][6];
+    u8 un64[0x3DC];
+} Unk8009D84C; // size: 0x440
+
 extern u8 D_80049208[12];   // window colors maybe??
 extern u8 D_800492F0[][12]; // see Labels enum
 extern u16 D_80062D78;      // pressed button?
@@ -232,13 +257,16 @@ extern s32 D_80062F58;
 extern u_long* D_80062FC4;
 extern Unk800A8D04* D_80063014;
 extern DRAWENV D_800706A4[2];
+extern u8 D_800730DD[][0x14];
 extern s32 D_800756F8[];
 extern s8 D_80077F64[2][0x3400]; // polygon buffer
+extern u8 D_80083184[0x40];
 extern s16 D_8009A000;
 extern s32 D_8009A004;
 extern s32 D_8009A008;
 extern s32 D_8009A024[8];
 extern SaveWork _work; // 0x8009C6E4
+extern Unk8009D84C D_8009D84C[3];
 
 s32 func_80014B70(void);
 s32 func_80014BA8(s32 arg0);

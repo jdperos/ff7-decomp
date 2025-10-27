@@ -280,7 +280,7 @@ static s8 _D_80062EC3 = 0;
 void func_8001155C(void);
 void func_80014A00(s32* dst, s32* src, s32 len);
 u16* func_80014D9C(s32, s32, s32);
-void func_800150E4(u16*, u16*);
+s32 func_800150E4(u16*, u16*);
 u16* func_800151F4(s32);
 void func_80015CA0(GzHeader* src, s32* dst);
 u8 func_8001F6B4();
@@ -630,9 +630,9 @@ INCLUDE_ASM("asm/us/main/nonmatchings/18B8", func_800150E4);
 
 u16* func_800151F4(s32 arg0) { return func_80014D9C(0x10, arg0, 0); }
 
-void func_8001521C(s32 arg0) {
+s32 func_8001521C(s32 arg0) {
     u16* temp_v0 = func_800151F4(arg0);
-    func_800150E4(temp_v0, temp_v0);
+    return func_800150E4(temp_v0, temp_v0);
 }
 
 INCLUDE_ASM("asm/us/main/nonmatchings/18B8", func_80015248);
@@ -1444,7 +1444,20 @@ s32* func_80025758(s32 arg0) { return &D_80071E44[arg0 * 9]; }
 
 s32* func_80025774(s32 arg0) { return &D_80071C24[arg0 * 4]; }
 
+#ifndef NON_MATCHINGS
 INCLUDE_ASM("asm/us/main/nonmatchings/18B8", func_80025788);
+#else
+// --aspsx-version=2.21
+Unk8009D84C* func_80025788(s32 arg0) {
+    Unk8009D84C* partyMember;
+
+    partyMember = (Unk8009D84C*)0xFF;
+    if (_work.partyID[arg0] != 0xFF) {
+        return &D_8009D84C[arg0];
+    }
+    return 0xFF;
+}
+#endif
 
 void func_800257C4(void) {}
 

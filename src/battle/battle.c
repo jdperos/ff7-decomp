@@ -1,4 +1,4 @@
-#include <game.h>
+#include "battle.h"
 
 typedef struct {
     u8 unk[0x30];
@@ -7,7 +7,9 @@ typedef struct {
 typedef struct {
     s16 unk0;
     s16 unk2;
-    u8 raw[0x40];
+    s16 unk4;
+    s16 unk6;
+    u8 raw[0x3C];
 } Unk800AF470;
 
 typedef struct {
@@ -45,13 +47,11 @@ extern u16 D_800F4280[];
 extern s32 D_800F4BAC[];
 extern u8 D_800F514C[];
 extern s8 D_800F5760;
-extern Unk800AF470 D_800F5BBC[];
-extern u16 D_800F7DA6[4];
-extern u16 D_800F7DC2[];  // part of a struct
+extern Unk800AF470 D_800F5BB8[];
+extern u16 D_800F7DC2[1]; // part of a struct
 extern u16 D_800F7DC4[1]; // 100% part of a struct
 extern u16 D_800F83C6;    // part of struct?
 extern u16 D_800F83D0;
-extern u8 D_800F83F0[][0x68];
 extern u16 D_800F9DA4;
 extern u8 D_800FAFDC;
 extern s32 D_800FAFEC;
@@ -93,6 +93,7 @@ const u8 D_800A0098[] = {
 const s32 D_800A0108 = 21;
 const s32 D_800A010C[] = {2, 22, 3, 23, 4};
 
+// entrypoint
 INCLUDE_ASM("asm/us/battle/nonmatchings/battle", func_800A1158);
 
 INCLUDE_ASM("asm/us/battle/nonmatchings/battle", func_800A1798);
@@ -144,7 +145,7 @@ u8 func_800A2D0C(void) {
     s32 temp_v1;
 
     if (D_80063014->unk208 >= 3) {
-        return D_800F83F0[D_80063014->unk208][1];
+        return D_800F83E0[D_80063014->unk208].unk11;
     }
     return D_800A01A8[D_80063014->unkCC];
 }
@@ -465,7 +466,7 @@ INCLUDE_ASM("asm/us/battle/nonmatchings/battle", func_800A64B4);
 
 void func_800A653C(s32 arg0) {
     s32 index = func_800A44D8(arg0);
-    D_800F5BBC[index].unk0 = 0;
+    D_800F5BB8[index].unk4 = 0;
     D_800F7DC2[0] &= ~(1 << index);
 }
 
@@ -491,7 +492,7 @@ INCLUDE_ASM("asm/us/battle/nonmatchings/battle", func_800A6858);
 
 INCLUDE_ASM("asm/us/battle/nonmatchings/battle", func_800A68FC);
 
-void func_800A6A3C(s32 arg0, s32 arg1) { D_800F5BBC[arg0].raw[6] |= arg1; }
+void func_800A6A3C(s32 arg0, s32 arg1) { D_800F5BB8[arg0].raw[6] |= arg1; }
 
 INCLUDE_ASM("asm/us/battle/nonmatchings/battle", func_800A6A70);
 
@@ -859,7 +860,7 @@ void func_800AF380(s32 arg0) { func_800A7254(2, arg0, 0x15, 0xF); }
 
 INCLUDE_ASM("asm/us/battle/nonmatchings/battle", func_800AF3AC);
 
-void func_800AF470(s32 arg0) { D_800F5BBC[arg0].raw[0x20] = 3; }
+void func_800AF470(s32 arg0) { D_800F5BB8[arg0].raw[0x20] = 3; }
 
 INCLUDE_ASM("asm/us/battle/nonmatchings/battle", func_800AF494);
 
