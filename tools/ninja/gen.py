@@ -187,6 +187,7 @@ def add_splat_config(file_name: str):
     objs.clear()
     is_main = basename(cfg) == "main"
     is_battle = basename(cfg) == "battle"
+    is_batini = basename(cfg) == "batini"
     if platform(cfg) == "psx" and is_main:
         add_s(cfg, "header")
     for segment in cfg["segments"]:
@@ -232,7 +233,15 @@ def add_splat_config(file_name: str):
     if is_main:
         sym_paths.append("-T config/sym_ovl_export.us.txt")
     if is_battle:
+        nw.build(  # needs to export symbol list for batini
+            rule="sym-export",
+            outputs=f"config/sym_export_{basename(cfg)}.us.txt",
+            inputs=[output_name],
+        )
         sym_paths.append("-T config/sym_battle_import.us.txt")
+    if is_batini:
+        # batini uses symbols from battle
+        sym_paths.append("-T config/sym_export_battle.us.txt")
     nw.build(
         rule="psx-ld",
         outputs=[output_name],
@@ -249,7 +258,7 @@ def add_splat_config(file_name: str):
         # 1. generate sym_export.*.txt and allow other overlays to use SDK funcs
         # 2. to allow overlays re-generating sym_ovl_export.*.txt
         nw.build(
-            rule="ovl-sym-export",
+            rule="sym-export",
             outputs=["config/sym_ovl_export.us.txt"],
             inputs=get_ovl_elf_list("config/check.sha1"),
         )
@@ -333,11 +342,6 @@ with open("build.ninja", "w") as f:
         description="sym export $in",
     )
     nw.rule(
-        "ovl-sym-export",
-        command=".venv/bin/python3 tools/symbols.py $in > $out",
-        description="sym ovl export $out",
-    )
-    nw.rule(
         "check",
         command="sha1sum -c config/check.sha1",
         description="check",
@@ -348,6 +352,7 @@ with open("build.ninja", "w") as f:
         inputs=get_check_list("config/check.sha1"),
     )
     add_splat_config("config/main.us.yaml")
+    add_splat_config("config/batini.us.yaml")
     add_splat_config("config/battle.us.yaml")
     add_splat_config("config/brom.us.yaml")
     add_splat_config("config/dschange.us.yaml")
