@@ -20,7 +20,7 @@ cd ff7-decomp
 Install the necessary dependencies:
 
 ```shell
-make dependencies
+make requirements
 
 # Debian/Ubuntu
 sudo apt install ninja-build 7zip bchunk binutils-mipsel-linux-gnu gcc-mipsel-linux-gnu
