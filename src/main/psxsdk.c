@@ -216,17 +216,17 @@ INCLUDE_ASM("asm/us/main/nonmatchings/psxsdk", SpuSetReverbModeParam);
 
 INCLUDE_ASM("asm/us/main/nonmatchings/psxsdk", _spu_setReverbAttr);
 
-INCLUDE_ASM("asm/us/main/nonmatchings/psxsdk", func_800387FC);
+INCLUDE_ASM("asm/us/main/nonmatchings/psxsdk", SpuGetReverbModeParam);
 
 INCLUDE_ASM("asm/us/main/nonmatchings/psxsdk", SpuSetReverbDepth);
 
-INCLUDE_ASM("asm/us/main/nonmatchings/psxsdk", func_800388C4);
+INCLUDE_ASM("asm/us/main/nonmatchings/psxsdk", SpuSetReverbVoice);
 
 INCLUDE_ASM("asm/us/main/nonmatchings/psxsdk", SpuClearReverbWorkArea);
 
-INCLUDE_ASM("asm/us/main/nonmatchings/psxsdk", func_80038A84);
+INCLUDE_ASM("asm/us/main/nonmatchings/psxsdk", SpuSetIRQ);
 
-INCLUDE_ASM("asm/us/main/nonmatchings/psxsdk", func_80038BC4);
+INCLUDE_ASM("asm/us/main/nonmatchings/psxsdk", SpuSetIRQAddr);
 
 INCLUDE_ASM("asm/us/main/nonmatchings/psxsdk", SpuSetIRQCallback);
 

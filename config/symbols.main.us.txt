@@ -1,6 +1,7 @@
 main = 0x80011C1C;
 SYS_gil = 0x80025B7C;
 func_80026A0C = 0x80026A0C;
+SetReverbMode = 0x80029AF0;
 DS_init = 0x80033B70;
 DS_reset_members = 0x80033C08;
 DS_close = 0x80033CE0;
@@ -36,8 +37,12 @@ SpuRead = 0x80037BE0;
 SpuSetReverb = 0x80037C40;
 SpuSetReverbModeParam = 0x80037E1C;
 _spu_setReverbAttr = 0x8003832C;
+SpuGetReverbModeParam = 0x800387FC;
 SpuSetReverbDepth = 0x8003884C;
+SpuSetReverbVoice = 0x800388C4;
 SpuClearReverbWorkArea = 0x800388E8;
+SpuSetIRQ = 0x80038A84;
+SpuSetIRQAddr = 0x80038BC4;
 SpuSetIRQCallback = 0x80038C04;
 SpuWrite = 0x80038F04;
 SpuSetTransferMode = 0x80038FB8;
@@ -358,3 +363,7 @@ InitCARD = 0x800489F0;
 StartCARD = 0x80048A5C;
 StopCARD = 0x80048A94;
 StopCARD2 = 0x80048ACC;
+
+// Audio Globals
+g_ReverbMode = 0x8009A140;
+g_ReverbAttr = 0x8009C564; // type:SpuReverbAttr size:0x14

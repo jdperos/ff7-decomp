@@ -1,4 +1,5 @@
 #include "common.h"
+#include "psxsdk/libspu.h"
 
 typedef struct {
     s32 unk0;
@@ -83,6 +84,9 @@ extern s32 D_80099998;
 extern u8 D_80099BA8[];
 extern s32 D_80099DB8;
 
+extern u32 g_ReverbMode;
+extern SpuReverbAttr g_ReverbAttr;
+
 INCLUDE_ASM("asm/us/main/nonmatchings/akao", func_800293D0);
 
 INCLUDE_ASM("asm/us/main/nonmatchings/akao", func_800293F4);
@@ -107,7 +111,18 @@ INCLUDE_ASM("asm/us/main/nonmatchings/akao", func_800299C8);
 
 INCLUDE_ASM("asm/us/main/nonmatchings/akao", func_80029A50);
 
-INCLUDE_ASM("asm/us/main/nonmatchings/akao", func_80029AF0);
+void SetReverbMode(s32 in_ReverbMode) {
+    func_80029A50();
+    SpuGetReverbModeParam(&g_ReverbAttr);
+    if (g_ReverbAttr.mode != in_ReverbMode) {
+        g_ReverbMode = in_ReverbMode;
+        SpuSetReverb(SPU_OFF);
+        g_ReverbAttr.mode = in_ReverbMode | SPU_REV_MODE_CLEAR_WA;
+        g_ReverbAttr.mask = SPU_REV_MODE;
+        SpuSetReverbModeParam(&g_ReverbAttr);
+        SpuSetReverb(SPU_ON);
+    }
+}
 
 INCLUDE_ASM("asm/us/main/nonmatchings/akao", func_80029B78);
 
