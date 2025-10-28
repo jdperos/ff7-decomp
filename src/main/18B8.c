@@ -92,7 +92,7 @@ extern u8 D_80049528[];
 extern u8 D_80063690[];
 extern u8 g_PadABuffer;
 extern u8 g_PadBBuffer;
-extern D_80062FA0; // Some sort of pad state
+extern u8 D_80062FA0; // Some sort of pad state
 extern u16 D_80069490[];
 extern u16 D_800707BC;
 extern u16 D_800707BE;
