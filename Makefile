@@ -40,7 +40,9 @@ clean:
 
 .PHONY: format
 format: bin/clang-format
-	find src/ include/ -type f \( -name '*.c' -o -name '*.h' \) -print0 | xargs -0 -P$$(nproc) bin/clang-format -i
+	find src/ include/ -type f \( -name '*.c' -o -name '*.h' \) \
+		! -path 'include/psxsdk/*' -print0 | \
+		xargs -0 -P$$(nproc) bin/clang-format -i
 
 .PHONY: requirements
 requirements:
