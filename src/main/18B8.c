@@ -100,7 +100,6 @@ extern u8 D_80049520[];
 extern u8 D_80049528[];
 extern u8 D_80063690[];
 extern Unk800696AC D_800696AC;
-extern u8 g_PadBBuffer;
 extern u32 D_80062FA0; // Some sort of pad state
 extern u16 D_80069490[];
 extern u16 D_800707BC;
