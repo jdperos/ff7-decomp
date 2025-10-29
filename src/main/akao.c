@@ -87,15 +87,18 @@ extern s32 D_80099DB8;
 extern u32 g_ReverbMode;
 extern SpuReverbAttr g_ReverbAttr;
 
-INCLUDE_ASM("asm/us/main/nonmatchings/akao", func_800293D0);
+INCLUDE_ASM("asm/us/main/nonmatchings/akao", ClearSpuTransferCallback);
 
-INCLUDE_ASM("asm/us/main/nonmatchings/akao", func_800293F4);
+INCLUDE_ASM("asm/us/main/nonmatchings/akao", SetupSpuTransferCallback);
 
-INCLUDE_ASM("asm/us/main/nonmatchings/akao", func_80029424);
+void WriteSpuWithCallback(u8* in_Addr, u32 in_Size) {
+    SetupSpuTransferCallback();
+    SpuWrite(in_Addr, in_Size);
+}
 
-INCLUDE_ASM("asm/us/main/nonmatchings/akao", func_80029464);
+INCLUDE_ASM("asm/us/main/nonmatchings/akao", ReadSpuWithCallback);
 
-INCLUDE_ASM("asm/us/main/nonmatchings/akao", func_800294A4);
+INCLUDE_ASM("asm/us/main/nonmatchings/akao", WaitSpuTransferComplete);
 
 INCLUDE_ASM("asm/us/main/nonmatchings/akao", func_800294BC);
 

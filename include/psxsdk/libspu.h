@@ -87,8 +87,15 @@ typedef struct {
     long feedback;      // Feedback    (ECHO only)
 } SpuReverbAttr;
 
+#ifndef __SPU_TRANSFERCALLBACK_PROC
+#define __SPU_TRANSFERCALLBACK_PROC
+typedef void (*SpuTransferCallbackProc)(void);
+#endif /* __SPU_TRANSFERCALLBACK_PROC */
+
 extern long SpuSetTransferMode(long mode);
 extern unsigned long SpuWrite(unsigned char* addr, unsigned long size);
+
+extern SpuTransferCallbackProc SpuSetTransferCallback (SpuTransferCallbackProc func);
 
 extern long SpuSetReverbModeParam(SpuReverbAttr* attr);
 
