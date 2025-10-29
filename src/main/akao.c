@@ -1,3 +1,4 @@
+//! G=8
 #include "common.h"
 #include "psxsdk/libspu.h"
 
@@ -73,6 +74,7 @@ typedef struct {
     s32 unk38;
 } Unk80033788;
 
+extern s16 D_80062E08;
 extern s16 D_80062F40;
 extern s16 D_80062F48;
 extern s32 D_80062FE4;
@@ -87,9 +89,14 @@ extern s32 D_80099DB8;
 extern u32 g_ReverbMode;
 extern SpuReverbAttr g_ReverbAttr;
 
+extern void ClearSpuTransferCallback();
+
 INCLUDE_ASM("asm/us/main/nonmatchings/akao", ClearSpuTransferCallback);
 
-INCLUDE_ASM("asm/us/main/nonmatchings/akao", SetupSpuTransferCallback);
+void SetupSpuTransferCallback(void) {
+    D_80062E08 = 1;
+    SpuSetTransferCallback(ClearSpuTransferCallback);
+}
 
 void WriteSpuWithCallback(u8* in_Addr, u32 in_Size) {
     SetupSpuTransferCallback();
@@ -338,7 +345,7 @@ INCLUDE_ASM("asm/us/main/nonmatchings/akao", func_8002CF78);
 
 void func_8002CF98(void) {}
 
-void func_8002CFA0() { func_80038FEC(0); }
+void func_8002CFA0() { SpuSetTransferCallback(0); }
 
 INCLUDE_ASM("asm/us/main/nonmatchings/akao", func_8002CFC0);
 

@@ -242,7 +242,7 @@ INCLUDE_ASM("asm/us/main/nonmatchings/psxsdk", func_80038F64);
 
 INCLUDE_ASM("asm/us/main/nonmatchings/psxsdk", SpuSetTransferMode);
 
-INCLUDE_ASM("asm/us/main/nonmatchings/psxsdk", func_80038FEC);
+INCLUDE_ASM("asm/us/main/nonmatchings/psxsdk", SpuSetTransferCallback);
 
 INCLUDE_ASM("asm/us/main/nonmatchings/psxsdk", func_80039010);
 

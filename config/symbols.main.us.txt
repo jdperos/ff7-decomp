@@ -52,6 +52,7 @@ SpuSetIRQAddr = 0x80038BC4;
 SpuSetIRQCallback = 0x80038C04;
 SpuWrite = 0x80038F04;
 SpuSetTransferMode = 0x80038FB8;
+SpuSetTransferCallback = 0x80038FEC;
 SpuSetVoiceVolumeAttr = 0x80039450;
 rsin = 0x80039A74;
 sin_1 = 0x80039AB0;
