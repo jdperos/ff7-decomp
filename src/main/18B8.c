@@ -67,6 +67,15 @@ typedef struct {
 } Unk8001DE0C;
 
 typedef struct {
+    u8 padABuffer;
+    u8 unk1;
+    u8 unk2;
+    u8 unk3[31];
+    u8 padBBuffer;
+    u8 unk33[31];
+} Unk800696AC;
+
+typedef struct {
     s32 sector_off;
     s32 length;
 } PortraitEntry;
@@ -90,9 +99,9 @@ extern s32 D_80049224[8];
 extern u8 D_80049520[];
 extern u8 D_80049528[];
 extern u8 D_80063690[];
-extern u8 g_PadABuffer;
+extern Unk800696AC D_800696AC;
 extern u8 g_PadBBuffer;
-extern u8 D_80062FA0; // Some sort of pad state
+extern u32 D_80062FA0; // Some sort of pad state
 extern u16 D_80069490[];
 extern u16 D_800707BC;
 extern u16 D_800707BE;
@@ -130,7 +139,7 @@ s16 D_80062D68 = 0x0000;
 s16 D_80062D6A = 0x0000;
 s16 D_80062D6C = 0x0000;
 s16 D_80062D6E = 0x0000;
-s8 g_bPadsInitialized = 0x00;
+u8 g_bPadsInitialized = 0x00;
 s8 D_80062D71 = 0x00;
 s16 D_80062D72 = 0x0000;
 s16 D_80062D74 = 0x0000;
@@ -899,12 +908,11 @@ void func_8001C3C4(void) {}
 
 INCLUDE_ASM("asm/us/main/nonmatchings/18B8", func_8001C3CC);
 
-// INCLUDE_ASM("asm/us/main/nonmatchings/18B8", SetupGamepad);
 void SetupGamepad(void) {
     if (g_bPadsInitialized == 0) {
         g_bPadsInitialized = 1;
         StartPAD2();
-        InitPAD2(&g_PadABuffer, 4, &g_PadBBuffer, 4);
+        InitPAD2(&D_800696AC.padABuffer, 4, &D_800696AC.padBBuffer, 4);
     }
     D_80062FA0 = 0;
 }
