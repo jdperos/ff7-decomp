@@ -72,9 +72,9 @@ typedef struct {
     u8 unk2;
     u8 unk3[31];
     u8 padBBuffer;
-    u8 unk33;
-    u8 unk34;
-    u8 unk35[31];
+    u8 unk23;
+    u8 unk24;
+    u8 unk25[31];
 } Unk800696AC;
 
 typedef struct {
