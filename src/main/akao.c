@@ -96,7 +96,10 @@ void WriteSpuWithCallback(u8* in_Addr, u32 in_Size) {
     SpuWrite(in_Addr, in_Size);
 }
 
-INCLUDE_ASM("asm/us/main/nonmatchings/akao", ReadSpuWithCallback);
+void ReadSpuWithCallback(u8* in_Addr, u32 in_Size) {
+    SetupSpuTransferCallback();
+    SpuRead(in_Addr, in_Size);
+}
 
 INCLUDE_ASM("asm/us/main/nonmatchings/akao", WaitSpuTransferComplete);
 
