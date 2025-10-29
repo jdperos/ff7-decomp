@@ -367,7 +367,7 @@ StopCARD2 = 0x80048ACC;
 
 // Pad Globals
 g_bPadsInitialized = 0x80062D70;
-D_800696AC        = 0x800696AC;
+D_800696AC         = 0x800696AC;
 
 // Audio Globals
 g_ReverbMode = 0x8009A140;
